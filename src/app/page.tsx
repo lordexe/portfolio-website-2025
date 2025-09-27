@@ -2,7 +2,7 @@
 
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion"; 
 import { useState, useRef } from "react"; 
 
 const NAV_HEIGHT = '88px'; 
@@ -204,6 +204,15 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
 };
 
 export default function Home() {
+  
+  const { scrollY } = useScroll(); // Tracks scroll position of the window/body
+  
+  // Changed the end value to a NEGATIVE number.
+  // As scrollY goes from 0 to 800, 'y' goes from 0 to -160.
+  // This causes the fixed element to move UPWARD as the user scrolls down,
+  // making it scroll out slower than the main content.
+  const y = useTransform(scrollY, [0, 800], [0, -160], { clamp: false }); 
+
   return (
     <div className={`flex min-h-screen flex-col bg-[${BACKGROUND_COLOR}]`}>
       
@@ -214,10 +223,13 @@ export default function Home() {
         <SiteHeader />
       </div>
 
-      <section 
+      <motion.section 
         id="hero" 
         className={`fixed inset-x-0 top-0 z-0 bg-[${BACKGROUND_COLOR}] pointer-events-none`}
-        style={{ paddingTop: NAV_HEIGHT }} 
+        style={{ 
+          paddingTop: NAV_HEIGHT,
+          y: y, // Apply the slower vertical movement (now upward)
+        }} 
       >
         <div className="p-10 pb-2 h-full flex flex-col justify-end pointer-events-auto">
           <h1 className="font-saans text-4xl leading-tight tracking-tight text-[#f4f4f5] sm:text-5xl md:text-6xl">
@@ -226,7 +238,7 @@ export default function Home() {
             That Truly Move
           </h1>
         </div>
-      </section>
+      </motion.section>
 
       <main 
         className="flex flex-1 flex-col min-h-screen z-10"
