@@ -12,28 +12,33 @@ const DURATION = 0.7;
 
 const projects = [
   {
-    name: "Aether Dynamics",
-    image: "https://images.unsplash.com/photo-1758638928928-3d1e5a29ab24?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", 
+    name: "Apex 2025",
+    image: "src/../../apex_2025/apex_2025-thumbnail.png", 
+    videoUrl: "src/../../apex_2025/apex_2025-preview.mp4",
     tags: ["UX Design", "Motion Graphics", "Branding"]
   },
   {
     name: "Stellar Cartography",
     image: "https://images.unsplash.com/photo-1755609342539-a58d8d6a3e59?q=80&w=2160&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDBfHx8fA%3D%3D",
+    videoUrl: "https://example.com/stellar_cartography_preview.mp4",
     tags: ["Product Design", "iOS App", "Prototype"]
   },
   {
     name: "The Artisan Shop",
     image: "https://images.unsplash.com/photo-1510901509170-0d19525c57ac?fit=crop&w=600&h=800&q=80",
+    videoUrl: "https://example.com/artisan_shop_preview.mp4",
     tags: ["Web Dev", "E-Commerce", "Design System"]
   },
   {
     name: "Horizon Dashboard",
     image: "https://images.unsplash.com/photo-1540608677465-b77a06488d5e?fit=crop&w=600&h=800&q=80",
+    videoUrl: "https://example.com/horizon_dashboard_preview.mp4",
     tags: ["UI/UX", "Data Viz", "Dashboard"]
   },
   {
     name: "Echo Magazine",
     image: "https://images.unsplash.com/photo-1532057636367-e9a92440b8cf?fit=crop&w=600&h=800&q=80",
+    videoUrl: "https://example.com/echo_magazine_preview.mp4",
     tags: ["Print Layout", "Typography", "Art Direction"]
   },
 ];
@@ -45,6 +50,7 @@ interface ProjectCardProps {
 const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const [isHovered, setIsHovered] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -71,8 +77,19 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
     }
   };
 
-  const handleMouseLeave = () => {
+  const handleHoverStart = () => {
+    setIsHovered(true);
+    if (videoRef.current) {
+        videoRef.current.currentTime = 0;
+        videoRef.current.play().catch(e => console.error("Video play failed:", e));
+    }
+  }
+
+  const handleHoverEnd = () => {
     setIsHovered(false);
+    if (videoRef.current) {
+        videoRef.current.pause();
+    }
   };
 
 
@@ -115,9 +132,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
       ref={cardRef}
       className="relative w-full rounded-3xl overflow-hidden shadow-xl cursor-pointer"
       style={{ aspectRatio: '4 / 4.5' }} 
-      onHoverStart={() => setIsHovered(true)}
+      onHoverStart={handleHoverStart}
       onMouseMove={handleMouseMove}
-      onHoverEnd={handleMouseLeave}
+      onHoverEnd={handleHoverEnd}
     >
       <motion.div
         className="absolute inset-0 bg-cover bg-center"
@@ -128,19 +145,19 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         transition={{ duration: DURATION, ease: "easeInOut" }}
       />
       
-      <div className="absolute inset-0 bg-black/30"></div>
+      <div className="absolute inset-0"></div>
 
       <div className="relative z-10 p-5 h-full flex flex-col justify-between">
         
         <div className="flex justify-start">
-          <span className="bg-[#f4f4f5]/90 text-zinc-900 text-sm font-semibold px-3 py-1 rounded-full">
+          <span className="bg-[#f4f4f5]/90 text-zinc-900 text-lg font-semibold px-3 py-1 rounded-full">
             {project.name}
           </span>
         </div>
         
         <div className="flex justify-center items-center h-full pointer-events-none">
           <motion.div
-            className="w-full max-w-[85%] bg-[#f4f4f5]/20 backdrop-blur-sm rounded-md flex justify-center items-center"
+            className="w-full max-w-[85%] bg-[#f4f4f5]/20 backdrop-blur-sm rounded-md flex justify-center items-center overflow-hidden" 
             style={{ 
               aspectRatio: '16 / 9', 
               x: x, 
@@ -151,9 +168,15 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
             animate={isHovered ? "hover" : "initial"}
             transition={{ duration: DURATION, ease: EASE_IN_OUT_EXPO }}
           >
-            <span className="text-white text-base md:text-xl font-medium tracking-wider uppercase">
-              View Project
-            </span>
+            <video 
+              ref={videoRef}
+              src={project.videoUrl} 
+              autoPlay={false} 
+              loop 
+              muted 
+              playsInline 
+              className="w-full h-full object-cover"
+            />
           </motion.div>
         </div>
         
