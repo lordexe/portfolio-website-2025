@@ -6,7 +6,7 @@ const navLinks = [
   { href: "/about", label: "About" },
 ];
 
-export function SiteHeader() {
+export function Nav() {
   return (
     <header className="px-10 py-5">
       <nav className="flex w-full items-center justify-between">

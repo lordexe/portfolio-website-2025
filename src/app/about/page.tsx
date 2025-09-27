@@ -1,9 +1,9 @@
-import { SiteHeader } from "@/components/site-header";
+import { Nav } from "@/components/nav";
 
 export default function AboutPage() {
   return (
     <div className="flex min-h-screen flex-col">
-      <SiteHeader />
+      <Nav />
       <main className="flex flex-1 flex-col p-10">
         <div className="mx-auto w-full max-w-4xl">
           <h1 className="font-saans text-4xl text-[#f4f4f5]">About</h1>

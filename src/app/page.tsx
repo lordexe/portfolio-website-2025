@@ -1,9 +1,10 @@
 "use client";
 
-import { SiteHeader } from "@/components/site-header";
-import { SiteFooter } from "@/components/site-footer";
+import { Nav } from "@/components/nav";
+import { Footer } from "@/components/footer";
 import { motion, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion"; 
 import { useState, useRef } from "react"; 
+import Link from "next/link"; // 1. IMPORT Link
 
 const NAV_HEIGHT = '88px'; 
 const FIXED_TOP_HEIGHT = '300px'; 
@@ -14,30 +15,35 @@ const DURATION = 0.7;
 const projects = [
   {
     name: "Apex 2025",
+    slug: "apex-2025", // 2. ADD SLUG
     image: "src/../../apex_2025/apex_2025-thumbnail.png", 
     videoUrl: "src/../../apex_2025/apex_2025-preview.mp4",
     tags: ["UX Design", "Motion Graphics", "Branding"]
   },
   {
     name: "Stellar Cartography",
-    image: "https://images.unsplash.com/photo-1755609342539-a58d8d6a3e59?q=80&w=2160&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDBfHx8fA%3D%3D",
+    slug: "stellar-cartography", // 2. ADD SLUG
+    image: "https://images.unsplash.com/photo-1755609342539-a58d8d6a3e59?q=80&w=2160&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8fGVufDB8fHx8fA%3D%3D",
     videoUrl: "https://example.com/stellar_cartography_preview.mp4",
     tags: ["Product Design", "iOS App", "Prototype"]
   },
   {
     name: "The Artisan Shop",
+    slug: "the-artisan-shop", // 2. ADD SLUG
     image: "https://images.unsplash.com/photo-1510901509170-0d19525c57ac?fit=crop&w=600&h=800&q=80",
     videoUrl: "https://example.com/artisan_shop_preview.mp4",
     tags: ["Web Dev", "E-Commerce", "Design System"]
   },
   {
     name: "Horizon Dashboard",
+    slug: "horizon-dashboard", // 2. ADD SLUG
     image: "https://images.unsplash.com/photo-1540608677465-b77a06488d5e?fit=crop&w=600&h=800&q=80",
     videoUrl: "https://example.com/horizon_dashboard_preview.mp4",
     tags: ["UI/UX", "Data Viz", "Dashboard"]
   },
   {
     name: "Echo Magazine",
+    slug: "echo-magazine", // 2. ADD SLUG
     image: "https://images.unsplash.com/photo-1532057636367-e9a92440b8cf?fit=crop&w=600&h=800&q=80",
     videoUrl: "https://example.com/echo_magazine_preview.mp4",
     tags: ["Print Layout", "Typography", "Art Direction"]
@@ -129,88 +135,87 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   };
 
   return (
-    <motion.div
-      ref={cardRef}
-      className="relative w-full rounded-3xl overflow-hidden shadow-xl cursor-pointer"
-      style={{ aspectRatio: '4 / 4.5' }} 
-      onHoverStart={handleHoverStart}
-      onMouseMove={handleMouseMove}
-      onHoverEnd={handleHoverEnd}
-    >
-      <motion.div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${project.image})` }}
-        variants={imageVariants}
-        initial="initial"
-        animate={isHovered ? "hover" : "initial"}
-        transition={{ duration: DURATION, ease: "easeInOut" }}
-      />
-      
-      <div className="absolute inset-0"></div>
-
-      <div className="relative z-10 p-5 h-full flex flex-col justify-between">
-        
-        <div className="flex justify-start">
-          <span className="bg-[#f4f4f5]/90 text-zinc-900 text-lg font-semibold px-3 py-1 rounded-full">
-            {project.name}
-          </span>
-        </div>
-        
-        <div className="flex justify-center items-center h-full pointer-events-none">
-          <motion.div
-            className="w-full max-w-[85%] bg-[#f4f4f5]/20 backdrop-blur-sm rounded-md flex justify-center items-center overflow-hidden" 
-            style={{ 
-              aspectRatio: '16 / 9', 
-              x: x, 
-              y: y, 
-            }}
-            variants={previewDivVariants}
-            initial="initial"
-            animate={isHovered ? "hover" : "initial"}
-            transition={{ duration: DURATION, ease: EASE_IN_OUT_EXPO }}
-          >
-            <video 
-              ref={videoRef}
-              src={project.videoUrl} 
-              autoPlay={false} 
-              loop 
-              muted 
-              playsInline 
-              className="w-full h-full object-cover"
-            />
-          </motion.div>
-        </div>
-        
-        <motion.div 
-          className="flex flex-wrap justify-center gap-2"
-          variants={tagsVariants}
+    // 3. WRAP THE CARD CONTENT WITH LINK (which is wrapped by motion)
+    <Link href={`/projects/${project.slug}`} passHref legacyBehavior>
+      <motion.a
+        ref={cardRef}
+        className="relative w-full rounded-3xl overflow-hidden shadow-xl cursor-pointer block" // Added 'block' for the Link styling
+        style={{ aspectRatio: '4 / 4.5' }} 
+        onHoverStart={handleHoverStart}
+        onMouseMove={handleMouseMove}
+        onHoverEnd={handleHoverEnd}
+      >
+        <motion.div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${project.image})` }}
+          variants={imageVariants}
           initial="initial"
           animate={isHovered ? "hover" : "initial"}
-        >
-          {project.tags.map((tag, index) => (
-            <motion.span 
-              key={index} 
-              className="bg-[#f4f4f5]/20 backdrop-blur-sm text-[#f4f4f5] text-xs font-medium px-3 py-1 rounded-full"
-              variants={tagItemVariants}
-            >
-              {tag}
-            </motion.span>
-          ))}
-        </motion.div>
+          transition={{ duration: DURATION, ease: "easeInOut" }}
+        />
         
-      </div>
-    </motion.div>
+        <div className="absolute inset-0"></div>
+
+        <div className="relative z-10 p-5 h-full flex flex-col justify-between">
+          
+          <div className="flex justify-start">
+            <span className="bg-[#f4f4f5]/90 text-zinc-900 text-lg font-semibold px-3 py-1 rounded-full">
+              {project.name}
+            </span>
+          </div>
+          
+          <div className="flex justify-center items-center h-full pointer-events-none">
+            <motion.div
+              className="w-full max-w-[85%] bg-[#f4f4f5]/20 backdrop-blur-sm rounded-md flex justify-center items-center overflow-hidden" 
+              style={{ 
+                aspectRatio: '16 / 9', 
+                x: x, 
+                y: y, 
+              }}
+              variants={previewDivVariants}
+              initial="initial"
+              animate={isHovered ? "hover" : "initial"}
+              transition={{ duration: DURATION, ease: EASE_IN_OUT_EXPO }}
+            >
+              <video 
+                ref={videoRef}
+                src={project.videoUrl} 
+                autoPlay={false} 
+                loop 
+                muted 
+                playsInline 
+                className="w-full h-full object-cover"
+              />
+            </motion.div>
+          </div>
+          
+          <motion.div 
+            className="flex flex-wrap justify-center gap-2"
+            variants={tagsVariants}
+            initial="initial"
+            animate={isHovered ? "hover" : "initial"}
+          >
+            {project.tags.map((tag, index) => (
+              <motion.span 
+                key={index} 
+                className="bg-[#f4f4f5]/20 backdrop-blur-sm text-[#f4f4f5] text-xs font-medium px-3 py-1 rounded-full"
+                variants={tagItemVariants}
+              >
+                {tag}
+              </motion.span>
+            ))}
+          </motion.div>
+          
+        </div>
+      </motion.a>
+    </Link>
   );
 };
 
 export default function Home() {
   
-  const { scrollY } = useScroll(); // Tracks scroll position of the window/body
+  const { scrollY } = useScroll();
   
-  // Changed the end value to a NEGATIVE number.
-  // As scrollY goes from 0 to 800, 'y' goes from 0 to -160.
-  // This causes the fixed element to move UPWARD as the user scrolls down,
-  // making it scroll out slower than the main content.
   const y = useTransform(scrollY, [0, 800], [0, -160], { clamp: false }); 
 
   return (
@@ -220,7 +225,7 @@ export default function Home() {
         className={`fixed inset-x-0 top-0 z-50 bg-[${BACKGROUND_COLOR}]`}
         style={{ height: NAV_HEIGHT }}
       >
-        <SiteHeader />
+        <Nav />
       </div>
 
       <motion.section 
@@ -228,7 +233,7 @@ export default function Home() {
         className={`fixed inset-x-0 top-0 z-0 bg-[${BACKGROUND_COLOR}] pointer-events-none`}
         style={{ 
           paddingTop: NAV_HEIGHT,
-          y: y, // Apply the slower vertical movement (now upward)
+          y: y,
         }} 
       >
         <div className="p-10 pb-2 h-full flex flex-col justify-end pointer-events-auto">
@@ -313,7 +318,7 @@ export default function Home() {
 
       </main>
       
-      <SiteFooter />
+      <Footer />
     </div>
   );
 }
