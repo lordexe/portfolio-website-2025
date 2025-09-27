@@ -1,7 +1,7 @@
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-[#18181a] px-6 py-12 text-[#f4f4f5]">
-      <section className="w-full max-w-5xl">
+    <main className="flex min-h-[calc(100vh-8rem)] flex-col items-center justify-center px-6 pb-12">
+      <section id="home" className="w-full pt-10">
         <h1 className="sr-only">Home</h1>
       </section>
     </main>
