@@ -1,15 +1,21 @@
 "use client";
 
 import { SiteHeader } from "@/components/site-header";
-import { SiteFooter } from "@/components/site-footer";
+import { SiteFooter } from "@/components/site-footer"; // Correctly using SiteFooter
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useState, useRef } from "react"; 
+import Link from "next/link"; // <-- NEW: Import Link
 
 const NAV_HEIGHT = '88px'; 
 const FIXED_TOP_HEIGHT = '300px'; 
 const BACKGROUND_COLOR = '#18181a'; 
 const EASE_IN_OUT_EXPO = [0.7, 0, 0.15, 1]; 
 const DURATION = 0.7;
+
+// <-- NEW: Helper function to convert a project name to a URL slug
+const createSlug = (name: string) => {
+  return name.toLowerCase().replace(/\s+/g, '-');
+};
 
 const projects = [
   {
@@ -127,79 +133,87 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
       }
     },
   };
+  
+  const projectSlug = createSlug(project.name); // <-- Create the slug here
 
   return (
-    <motion.div
-      ref={cardRef}
-      className="relative w-full rounded-3xl overflow-hidden shadow-xl cursor-pointer"
-      style={{ aspectRatio: '4 / 4.5' }} 
-      onHoverStart={handleHoverStart}
-      onMouseMove={handleMouseMove}
-      onHoverEnd={handleHoverEnd}
+    // <-- Wrap the entire card in a Link component
+    <Link 
+      href={`/projects/${projectSlug}`} 
+      passHref
     >
       <motion.div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${project.image})` }}
-        variants={imageVariants}
-        initial="initial"
-        animate={isHovered ? "hover" : "initial"}
-        transition={{ duration: DURATION, ease: "easeInOut" }}
-      />
-      
-      <div className="absolute inset-0"></div>
-
-      <div className="relative z-10 p-5 h-full flex flex-col justify-between">
-        
-        <div className="flex justify-start">
-          <span className="bg-[#f4f4f5]/90 text-zinc-900 text-lg font-semibold px-3 py-1 rounded-full">
-            {project.name}
-          </span>
-        </div>
-        
-        <div className="flex justify-center items-center h-full pointer-events-none">
-          <motion.div
-            className="w-full max-w-[85%] bg-[#f4f4f5]/20 backdrop-blur-sm rounded-md flex justify-center items-center overflow-hidden" 
-            style={{ 
-              aspectRatio: '16 / 9', 
-              x: x, 
-              y: y, 
-            }}
-            variants={previewDivVariants}
-            initial="initial"
-            animate={isHovered ? "hover" : "initial"}
-            transition={{ duration: DURATION, ease: EASE_IN_OUT_EXPO }}
-          >
-            <video 
-              ref={videoRef}
-              src={project.videoUrl} 
-              autoPlay={false} 
-              loop 
-              muted 
-              playsInline 
-              className="w-full h-full object-cover"
-            />
-          </motion.div>
-        </div>
-        
-        <motion.div 
-          className="flex flex-wrap justify-center gap-2"
-          variants={tagsVariants}
+        ref={cardRef}
+        className="relative w-full rounded-3xl overflow-hidden shadow-xl cursor-pointer"
+        style={{ aspectRatio: '4 / 4.5' }} 
+        onHoverStart={handleHoverStart}
+        onMouseMove={handleMouseMove}
+        onHoverEnd={handleHoverEnd}
+      >
+        <motion.div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${project.image})` }}
+          variants={imageVariants}
           initial="initial"
           animate={isHovered ? "hover" : "initial"}
-        >
-          {project.tags.map((tag, index) => (
-            <motion.span 
-              key={index} 
-              className="bg-[#f4f4f5]/20 backdrop-blur-sm text-[#f4f4f5] text-xs font-medium px-3 py-1 rounded-full"
-              variants={tagItemVariants}
-            >
-              {tag}
-            </motion.span>
-          ))}
-        </motion.div>
+          transition={{ duration: DURATION, ease: "easeInOut" }}
+        />
         
-      </div>
-    </motion.div>
+        <div className="absolute inset-0"></div>
+
+        <div className="relative z-10 p-5 h-full flex flex-col justify-between">
+          
+          <div className="flex justify-start">
+            <span className="bg-[#f4f4f5]/90 text-zinc-900 text-lg font-semibold px-3 py-1 rounded-full">
+              {project.name}
+            </span>
+          </div>
+          
+          <div className="flex justify-center items-center h-full pointer-events-none">
+            <motion.div
+              className="w-full max-w-[85%] bg-[#f4f4f5]/20 backdrop-blur-sm rounded-md flex justify-center items-center overflow-hidden" 
+              style={{ 
+                aspectRatio: '16 / 9', 
+                x: x, 
+                y: y, 
+              }}
+              variants={previewDivVariants}
+              initial="initial"
+              animate={isHovered ? "hover" : "initial"}
+              transition={{ duration: DURATION, ease: EASE_IN_OUT_EXPO }}
+            >
+              <video 
+                ref={videoRef}
+                src={project.videoUrl} 
+                autoPlay={false} 
+                loop 
+                muted 
+                playsInline 
+                className="w-full h-full object-cover"
+              />
+            </motion.div>
+          </div>
+          
+          <motion.div 
+            className="flex flex-wrap justify-center gap-2"
+            variants={tagsVariants}
+            initial="initial"
+            animate={isHovered ? "hover" : "initial"}
+          >
+            {project.tags.map((tag, index) => (
+              <motion.span 
+                key={index} 
+                className="bg-[#f4f4f5]/20 backdrop-blur-sm text-[#f4f4f5] text-xs font-medium px-3 py-1 rounded-full"
+                variants={tagItemVariants}
+              >
+                {tag}
+              </motion.span>
+            ))}
+          </motion.div>
+          
+        </div>
+      </motion.div>
+    </Link> // <-- Closing Link tag
   );
 };
 
