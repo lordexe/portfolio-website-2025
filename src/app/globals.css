@@ -22,3 +22,34 @@ body {
   font-family: "Saans", var(--font-geist-sans), Arial, Helvetica, sans-serif;
   font-weight: 500;
 }
+
+.marquee__track {
+  display: flex;
+  width: max-content;
+  gap: 2.5rem;
+  animation: marquee-scroll 20s linear infinite;
+  will-change: transform;
+}
+
+.marquee__group {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding-inline-end: 2.5rem;
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track {
+    animation: none;
+  }
+}
