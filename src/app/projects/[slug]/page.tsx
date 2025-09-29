@@ -5,14 +5,19 @@ import { Footer } from "@/components/footer";
 import { getProjectDataBySlug, ALL_PROJECTS } from "@/data/projects";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, ReactNode } from "react";
 import { ArrowUpRight } from "lucide-react"; 
 
 const NAV_HEIGHT = '88px'; 
 const FIXED_TOP_HEIGHT = '300px'; 
 const BACKGROUND_COLOR = '#18181a'; 
 
-const InlineLink = ({ href, children }) => {
+type InlineLinkProps = {
+  href: string;
+  children: ReactNode;
+};
+
+const InlineLink = ({ href, children }: InlineLinkProps) => {
   return (
     <a
       href={href}
@@ -26,9 +31,15 @@ const InlineLink = ({ href, children }) => {
   );
 };
 
-export default function ProjectPage({ params }) {
-  
-  const [project, setProject] = useState(null);
+type ProjectPageProps = {
+  params: {
+    slug: string;
+  };
+};
+
+export default function ProjectPage({ params }: ProjectPageProps) {
+
+  const [project, setProject] = useState<(typeof ALL_PROJECTS)[number] | null>(null);
   
   useEffect(() => {
     const data = getProjectDataBySlug(params.slug);
