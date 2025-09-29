@@ -22,7 +22,7 @@ interface ProjectCardProps {
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const cardRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLAnchorElement | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const mouseX = useMotionValue(0);
@@ -35,7 +35,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const x = useTransform(smoothX, [-0.5, 0.5], [-35, 35]);
   const y = useTransform(smoothY, [-0.5, 0.5], [-35, 35]);
 
-  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseMove = (event: React.MouseEvent<HTMLAnchorElement>) => {
     if (cardRef.current) {
       const rect = cardRef.current.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;

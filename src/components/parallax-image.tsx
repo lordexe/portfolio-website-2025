@@ -1,6 +1,7 @@
 // parallax-image.tsx
 
 import React, { useRef, useState, useEffect, useCallback } from 'react';
+import Image from 'next/image';
 
 interface ParallaxImageProps {
   imageUrl: string;
@@ -68,20 +69,18 @@ const ParallaxImage: React.FC<ParallaxImageProps> = ({
       role="img"
       aria-label={altText}
     >
-      <img
+      <Image
         src={imageUrl}
         alt={altText}
-        className={`
-          w-full 
-          object-cover 
-          absolute 
-          top-1/2 
-          left-1/2 
-          transform 
-        `}
+        fill
+        className="object-cover"
+        sizes="100vw"
         style={{
+          width: `${imageScaleFactor * 100}%`,
           height: `${imageScaleFactor * 100}%`,
-          transform: `translate(-50% , calc(-50% + ${offsetY}px))` 
+          top: '50%',
+          left: '50%',
+          transform: `translate(-50% , calc(-50% + ${offsetY}px))`
         }}
       />
     </div>

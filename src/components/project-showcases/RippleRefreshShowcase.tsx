@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { ArrowUpRight } from 'lucide-react';
 
 const HIGHLIGHT_COLOR = '#D2F65A';
@@ -85,8 +86,8 @@ const colSpanClasses = {
   4: 'lg:col-span-4',
 };
 
-const contentClass = "w-full h-full transition-transform duration-300";
-const imageVideoClass = contentClass + " object-cover hover:scale-105";
+const contentClass = "w-full h-full";
+const mediaClass = "object-cover transition-transform duration-300 hover:scale-105";
 
 export const RippleRefreshShowcase = () => {
   return (
@@ -130,7 +131,7 @@ export const RippleRefreshShowcase = () => {
                 <video
                   src={item.src}
                   alt={item.alt}
-                  className={imageVideoClass}
+                  className={`${contentClass} ${mediaClass}`}
                   autoPlay
                   loop
                   muted
@@ -141,19 +142,22 @@ export const RippleRefreshShowcase = () => {
         } else if (item.type === 'embed' && item.embedHtml) {
              content = (
                 <div
-                    className={contentClass + " non-scaling-embed"}
+                    className={`${contentClass} non-scaling-embed`}
                     dangerouslySetInnerHTML={{ __html: item.embedHtml }}
                     style={{ position: 'relative', width: '100%', height: '100%' }}
                 />
              );
         } else {
             content = (
-                <img
-                  src={item.src}
-                  alt={item.alt}
-                  className={imageVideoClass}
-                  loading="lazy"
-                />
+                <div className={`relative ${contentClass}`}>
+                  <Image
+                    src={item.src}
+                    alt={item.alt}
+                    fill
+                    className={mediaClass}
+                    sizes="(min-width: 1280px) 25vw, (min-width: 768px) 33vw, 100vw"
+                  />
+                </div>
             );
         }
         

@@ -4,6 +4,7 @@ import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { getProjectDataBySlug, ALL_PROJECTS } from "@/data/projects";
 import { motion, useScroll, useTransform } from "framer-motion";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import { ArrowUpRight } from "lucide-react"; 
 
@@ -127,11 +128,13 @@ export default function ProjectPage({ params }) {
           />
           <div className={`bg-[${BACKGROUND_COLOR}]`}>
             <div className="relative w-full aspect-video rounded-3xl overflow-hidden bg-gray-700">
-              <img 
-                src={project.heroImage} 
+              <Image
+                src={project.heroImage}
                 alt={`${project.name} main showcase image`}
-                className="w-full h-full object-cover"
-                loading="lazy"
+                fill
+                className="object-cover"
+                sizes="(min-width: 1024px) 70vw, 100vw"
+                priority
               />
             </div>
           </div>
