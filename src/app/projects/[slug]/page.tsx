@@ -1,10 +1,7 @@
+import type { PageProps } from "next";
 import { notFound } from "next/navigation";
 import { ProjectPageClient } from "./ProjectPageClient";
 import { ALL_PROJECTS, getProjectDataBySlug, ProjectData } from "@/data/projects";
-
-type ProjectPageProps = {
-  params: { slug: string };
-};
 
 function getNextProject(project: ProjectData) {
   const currentIndex = ALL_PROJECTS.findIndex((p) => p.slug === project.slug);
@@ -12,8 +9,9 @@ function getNextProject(project: ProjectData) {
   return ALL_PROJECTS[nextProjectIndex];
 }
 
-export default function ProjectPage({ params }: ProjectPageProps) {
-  const project = getProjectDataBySlug(params.slug);
+export default async function ProjectPage({ params }: PageProps<{ slug: string }>) {
+  const { slug } = await params;
+  const project = getProjectDataBySlug(slug);
 
   if (!project) {
     notFound();

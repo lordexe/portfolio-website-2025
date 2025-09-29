@@ -22,7 +22,7 @@ interface ProjectCardProps {
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const cardRef = useRef<HTMLAnchorElement | null>(null);
+  const cardRef = useRef<HTMLDivElement | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const mouseX = useMotionValue(0);
@@ -35,7 +35,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const x = useTransform(smoothX, [-0.5, 0.5], [-35, 35]);
   const y = useTransform(smoothY, [-0.5, 0.5], [-35, 35]);
 
-  const handleMouseMove = (event: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
     if (cardRef.current) {
       const rect = cardRef.current.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
@@ -97,11 +97,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   };
 
   return (
-    <Link href={`/projects/${project.slug}`} passHref legacyBehavior>
-      <motion.a
+    <Link href={`/projects/${project.slug}`} className="block">
+      <motion.div
         ref={cardRef}
-        className="relative w-full rounded-3xl overflow-hidden shadow-xl cursor-pointer block"
-        style={{ aspectRatio: '4 / 4.5' }} 
+        className="relative w-full rounded-3xl overflow-hidden shadow-xl cursor-pointer"
+        style={{ aspectRatio: '4 / 4.5' }}
         onHoverStart={handleHoverStart}
         onMouseMove={handleMouseMove}
         onHoverEnd={handleHoverEnd}
@@ -168,7 +168,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           </motion.div>
           
         </div>
-      </motion.a>
+      </motion.div>
     </Link>
   );
 };
