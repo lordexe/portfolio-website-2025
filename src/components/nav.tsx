@@ -8,7 +8,7 @@ const navLinks = [
 
 export function Nav() {
   return (
-    <header className="px-10 py-5">
+    <header className="px-20 py-5">
       <nav className="flex w-full items-center justify-between">
         <Link className="flex items-center gap-3" href="/" aria-label="Ani Chauhan home">
           <span className="inline-flex h-8 w-8 items-center justify-center">

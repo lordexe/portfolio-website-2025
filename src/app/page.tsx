@@ -4,7 +4,8 @@ import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { motion, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion"; 
 import { useState, useRef } from "react"; 
-import Link from "next/link"; // 1. IMPORT Link
+import Link from "next/link"; 
+import { ALL_PROJECTS, ProjectData } from "@/data/projects"; // IMPORT DATA
 
 const NAV_HEIGHT = '88px'; 
 const FIXED_TOP_HEIGHT = '300px'; 
@@ -12,46 +13,8 @@ const BACKGROUND_COLOR = '#18181a';
 const EASE_IN_OUT_EXPO = [0.7, 0, 0.15, 1]; 
 const DURATION = 0.7;
 
-const projects = [
-  {
-    name: "Apex 2025",
-    slug: "apex-2025", // 2. ADD SLUG
-    image: "src/../../apex_2025/apex_2025-thumbnail.png", 
-    videoUrl: "src/../../apex_2025/apex_2025-preview.mp4",
-    tags: ["UX Design", "Motion Graphics", "Branding"]
-  },
-  {
-    name: "Stellar Cartography",
-    slug: "stellar-cartography", // 2. ADD SLUG
-    image: "https://images.unsplash.com/photo-1755609342539-a58d8d6a3e59?q=80&w=2160&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8fGVufDB8fHx8fA%3D%3D",
-    videoUrl: "https://example.com/stellar_cartography_preview.mp4",
-    tags: ["Product Design", "iOS App", "Prototype"]
-  },
-  {
-    name: "The Artisan Shop",
-    slug: "the-artisan-shop", // 2. ADD SLUG
-    image: "https://images.unsplash.com/photo-1510901509170-0d19525c57ac?fit=crop&w=600&h=800&q=80",
-    videoUrl: "https://example.com/artisan_shop_preview.mp4",
-    tags: ["Web Dev", "E-Commerce", "Design System"]
-  },
-  {
-    name: "Horizon Dashboard",
-    slug: "horizon-dashboard", // 2. ADD SLUG
-    image: "https://images.unsplash.com/photo-1540608677465-b77a06488d5e?fit=crop&w=600&h=800&q=80",
-    videoUrl: "https://example.com/horizon_dashboard_preview.mp4",
-    tags: ["UI/UX", "Data Viz", "Dashboard"]
-  },
-  {
-    name: "Echo Magazine",
-    slug: "echo-magazine", // 2. ADD SLUG
-    image: "https://images.unsplash.com/photo-1532057636367-e9a92440b8cf?fit=crop&w=600&h=800&q=80",
-    videoUrl: "https://example.com/echo_magazine_preview.mp4",
-    tags: ["Print Layout", "Typography", "Art Direction"]
-  },
-];
-
 interface ProjectCardProps {
-  project: typeof projects[0];
+  project: ProjectData; 
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
@@ -135,11 +98,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   };
 
   return (
-    // 3. WRAP THE CARD CONTENT WITH LINK (which is wrapped by motion)
     <Link href={`/projects/${project.slug}`} passHref legacyBehavior>
       <motion.a
         ref={cardRef}
-        className="relative w-full rounded-3xl overflow-hidden shadow-xl cursor-pointer block" // Added 'block' for the Link styling
+        className="relative w-full rounded-3xl overflow-hidden shadow-xl cursor-pointer block"
         style={{ aspectRatio: '4 / 4.5' }} 
         onHoverStart={handleHoverStart}
         onMouseMove={handleMouseMove}
@@ -147,7 +109,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
       >
         <motion.div
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${project.image})` }}
+          style={{ backgroundImage: `url(${project.thumbnail})` }}
           variants={imageVariants}
           initial="initial"
           animate={isHovered ? "hover" : "initial"}
@@ -179,7 +141,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
             >
               <video 
                 ref={videoRef}
-                src={project.videoUrl} 
+                src={project.reelVideoUrl} 
                 autoPlay={false} 
                 loop 
                 muted 
@@ -236,7 +198,7 @@ export default function Home() {
           y: y,
         }} 
       >
-        <div className="p-10 pb-2 h-full flex flex-col justify-end pointer-events-auto">
+        <div className="p-20 pb-2 h-full flex flex-col justify-end pointer-events-auto">
           <h1 className="font-saans text-4xl leading-tight tracking-tight text-[#f4f4f5] sm:text-5xl md:text-6xl">
             Designing Experiences
             <br />
@@ -250,7 +212,7 @@ export default function Home() {
         style={{ paddingTop: FIXED_TOP_HEIGHT }}
       >
         
-        <section id="reel" className={`px-10 -my-[80px] pb-[80px]`}>
+        <section id="reel" className={`px-20 -my-[80px] pb-[80px]`}>
           <div
             className="h-[150px] w-full"
             style={{
@@ -283,7 +245,7 @@ export default function Home() {
               </div>
               
               
-              <div className="uppercase tracking-wider">
+              <div className="">
                 Scroll Down
               </div>
               
@@ -299,18 +261,18 @@ export default function Home() {
           </div>
         </section>
         
-        <section id="projects" className={`p-10 pt-30 bg-[${BACKGROUND_COLOR}]`}>
+        <section id="projects" className={`p-20 pt-30 bg-[${BACKGROUND_COLOR}]`}>
           <h2 className="font-saans text-4xl leading-tight tracking-tight text-[#f4f4f5] sm:text-5xl md:text-6xl mb-12">
             Selected Projects
           </h2>
           
           <div className="grid gap-8"
                style={{ 
-                 gridTemplateColumns: 'repeat(auto-fit, minmax(480px, 1fr))' 
+                 gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))' 
                }}
           >
-            {projects.map((project, index) => (
-              <ProjectCard key={index} project={project} />
+            {ALL_PROJECTS.map((project, index) => (
+              <ProjectCard key={project.slug} project={project} />
             ))}
           </div>
           
