@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-
+import { Footer } from "@/components/footer";
 import { Nav } from "@/components/nav";
 
 export default function AboutPage() {
@@ -42,6 +42,7 @@ export default function AboutPage() {
           </div>
         </div>
       </main>
+      <Footer />
     </div>
   );
 }

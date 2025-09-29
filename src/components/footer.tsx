@@ -24,8 +24,8 @@ const InlineLink: React.FC<InlineLinkProps> = ({ href, children }) => {
 
 export function Footer(): React.ReactElement {
   return (
-    <footer className="flex items-center justify-between px-5 md:px-20 py-5 text-lg text-[#f4f4f5]/60 border-t border-[#f4f4f5]/10 mt-20">
-      <div className="flex items-center gap-6">
+    <footer className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 px-5 md:px-20 py-5 text-lg text-[#f4f4f5]/60 border-t border-[#f4f4f5]/10 mt-20">
+      <div className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-6">
         <InlineLink href="mailto:thechauhananirudh@gmail.com">
           thechauhananirudh@gmail.com
         </InlineLink>
