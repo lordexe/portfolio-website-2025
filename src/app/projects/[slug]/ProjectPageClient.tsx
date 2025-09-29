@@ -4,13 +4,26 @@ import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
-import { ReactNode } from "react";
+import { ComponentType, ReactNode } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { ProjectData } from "@/data/projects";
+import { Apex2025Showcase } from "@/components/project-showcases/Apex2025Showcase";
+import { RippleRefreshShowcase } from "@/components/project-showcases/RippleRefreshShowcase";
+import { LaJoteRefreshShowcase } from "@/components/project-showcases/LaJoteShowcase";
+import { SwellMiamiRefreshShowcase } from "@/components/project-showcases/SwellMiamiShowcase";
 
 const NAV_HEIGHT = "88px";
 const FIXED_TOP_HEIGHT = "300px";
 const BACKGROUND_COLOR = "#18181a";
+
+const showcaseComponents: Record<string, ComponentType> = {
+  "apex-2025": Apex2025Showcase,
+  "ripple-brand-refresh": RippleRefreshShowcase,
+  "la-jote": LaJoteRefreshShowcase,
+  "swell-Miami": SwellMiamiRefreshShowcase,
+};
+
+const TITLE_EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 type InlineLinkProps = {
   href: string;
@@ -40,7 +53,7 @@ export function ProjectPageClient({ project, nextProject }: ProjectPageClientPro
   const { scrollYProgress } = useScroll();
   const yRange = ["0%", "-550%"];
   const y = useTransform(scrollYProgress, [0, 1], yRange);
-  const ShowcaseComponent = project.showcaseComponent;
+  const ShowcaseComponent = showcaseComponents[project.slug];
 
   const titleContainerVariants = {
     hidden: {},
@@ -57,7 +70,7 @@ export function ProjectPageClient({ project, nextProject }: ProjectPageClientPro
       y: 0,
       transition: {
         duration: 1.2,
-        ease: [0.16, 1, 0.3, 1],
+        ease: TITLE_EASE,
       },
     },
   };
@@ -167,7 +180,7 @@ export function ProjectPageClient({ project, nextProject }: ProjectPageClientPro
 
         <section id="project-showcase" className={`px-5 md:px-20 pt-16 pb-20 bg-[${BACKGROUND_COLOR}]`}>
           <div className="mx-auto">
-            <ShowcaseComponent />
+            {ShowcaseComponent ? <ShowcaseComponent /> : null}
           </div>
         </section>
 

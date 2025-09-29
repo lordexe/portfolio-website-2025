@@ -1,9 +1,3 @@
-import { Apex2025Showcase } from "@/components/project-showcases/Apex2025Showcase";
-import { RippleRefreshShowcase } from "@/components/project-showcases/RippleRefreshShowcase";
-import { LaJoteRefreshShowcase } from "@/components/project-showcases/LaJoteShowcase";
-import { SwellMiamiRefreshShowcase } from "@/components/project-showcases/SwellMiamiShowcase";
-import React from 'react';
-
 export interface CoreProjectData {
   slug: string;
   name: string;
@@ -11,15 +5,14 @@ export interface CoreProjectData {
   tags: string[];
   keyskills: string[];
   reelVideoUrl: string;
-  heroImage: string; 
+  heroImage: string;
   info: {
     client: string;
     year: string;
     description: string;
-    descriptionTitle: string; 
-    siteUrl?: string; 
+    descriptionTitle: string;
+    siteUrl?: string;
   };
-  showcaseComponent: React.ComponentType;
 }
 
 export interface ProjectData extends CoreProjectData {
@@ -43,7 +36,6 @@ const RAW_PROJECTS: CoreProjectData[] = [
       descriptionTitle: "The fifth annual global summmit for the XRPL Community, hosted in Singapore", 
       siteUrl: "https://www.xrpledgerapex.com/",
     },
-    showcaseComponent: Apex2025Showcase,
   },
   {
     slug: "ripple-brand-refresh",
@@ -60,7 +52,6 @@ const RAW_PROJECTS: CoreProjectData[] = [
       descriptionTitle: "Translating Complex Technology into Simple, Expressive Motion", 
       siteUrl: "https://brand.ripple.com/",
     },
-    showcaseComponent: RippleRefreshShowcase,
   },
   {
     slug: "la-jote",
@@ -76,7 +67,6 @@ const RAW_PROJECTS: CoreProjectData[] = [
       description: "This project was a calculated experiment in extreme value elevation, proving that perceived product worth is dictated by brand experience, not cost. I took a simple art class prompt—design packaging for a cheap item—and extrapolated it to a real-world concept, selecting a $1 Dollar Tree pen and transforming it into a high-end luxury product. The core challenge was using design, animation, and strategy to generate massive consumer confidence for a minimal investment. <br/><br/> The result is La Jote, a luxury pen brand that redefines value through meticulous design and storytelling. Every element, from the sophisticated logo to the 3D animated commercial and the physical unboxing experience, was crafted to evoke exclusivity. This project underscores the power of branding in shaping consumer perceptions and demonstrates how strategic design, executed across multiple media can elevate even the most ordinary products to extraordinary heights.",
       descriptionTitle: "Elevating a $1 Dollar Tree Item to a $100 Luxury Brand",
     },
-    showcaseComponent: LaJoteRefreshShowcase,
   },
   {
     slug: "swell-Miami",
@@ -92,7 +82,6 @@ const RAW_PROJECTS: CoreProjectData[] = [
       description: "Ripple Swell 2024 convened more than 600 thought leaders, partners, and innovators across the blockchain, finance, and payments industries for two days of forward-looking content and connection. As part of the core creative team, I oversaw the unified design system for the event—defining the branding, motion design, stage environments, digital assets, and immersive experiences—ensuring every moment felt intentional and elevated across multiple venues in Miami. <br/><br/> The design system was crafted to reflect Ripple's commitment to innovation and the transformative power of blockchain technology. From the dynamic stage visuals to the branded experiences, every element was designed to engage attendees and foster a sense of community and excitement about the future of finance.",
       descriptionTitle: "Designing a Cohesive Brand Experience for a Global Summit", 
     },
-    showcaseComponent: SwellMiamiRefreshShowcase,
   },
 ];
 
