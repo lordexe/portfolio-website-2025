@@ -13,6 +13,7 @@ import { Apex2025Showcase } from "@/components/project-showcases/Apex2025Showcas
 import { RippleRefreshShowcase } from "@/components/project-showcases/RippleRefreshShowcase";
 import { LaJoteRefreshShowcase } from "@/components/project-showcases/LaJoteShowcase";
 import { SwellMiamiRefreshShowcase } from "@/components/project-showcases/SwellMiamiShowcase";
+import { StablecoinRlusdShowcase } from "@/components/project-showcases/StablecoinRlusdShowcase";
 
 const NAV_HEIGHT = "88px";
 const FIXED_TOP_HEIGHT = "300px";
@@ -22,7 +23,8 @@ const showcaseComponents: Record<string, ComponentType> = {
   "apex-2025": Apex2025Showcase,
   "ripple-brand-refresh": RippleRefreshShowcase,
   "la-jote": LaJoteRefreshShowcase,
-  "swell-Miami": SwellMiamiRefreshShowcase,
+  "swell-miami": SwellMiamiRefreshShowcase,
+  "stablecoin-rlusd": StablecoinRlusdShowcase,
 };
 
 const TITLE_EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];

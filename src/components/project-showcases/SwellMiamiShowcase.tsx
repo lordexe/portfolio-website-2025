@@ -88,7 +88,7 @@ const SWELLMIAMI_SHOWCASE_DATA: ShowcaseItem[] = [
   { src: '/swell_miami/swell_miami-experience8.png', alt: 'Swell Miami Signage', colSpan: 1, ratio: 'square', type: 'img' },
   { src: '/swell_miami/swell_miami-experience7.png', alt: 'Swell Miami Check In', colSpan: 1, ratio: 'square', type: 'img' },
   { src: '/swell_miami/swell_miami-gifts.png', alt: 'Swell Miami Gifts', colSpan: 1, ratio: 'square', type: 'img' },
-  { src: '/swell_miami/swell_miami-experience5.png', alt: 'Swell Miami Signage', colSpan: 1, ratio: 'square', type: 'img' },
+  { src: '/swell_miami/swell_miami-social_card2.png', alt: 'Swell Miami Signage', colSpan: 1, ratio: 'square', type: 'img' },
   { src: '/swell_miami/swell_miami-guidelines.png', alt: 'Swell Miami Guidelines', colSpan: 4, ratio: 'wide', type: 'img' },
   { src: '/swell_miami/swell_miami-reel.mp4', alt: 'Swell Miami Motion', colSpan: 4, ratio: 'wide', type: 'video' },
 ];

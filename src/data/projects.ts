@@ -69,7 +69,7 @@ const RAW_PROJECTS: CoreProjectData[] = [
     },
   },
   {
-    slug: "swell-Miami",
+    slug: "swell-miami",
     name: "Swell Miami",
     thumbnail: "/swell_miami/swell_miami-thumbnail.png",
     tags: ["Motion", "Design", "Branding"],
@@ -81,6 +81,21 @@ const RAW_PROJECTS: CoreProjectData[] = [
       year: "2024",
       description: "Ripple Swell 2024 convened more than 600 thought leaders, partners, and innovators across the blockchain, finance, and payments industries for two days of forward-looking content and connection. As part of the core creative team, I oversaw the unified design system for the event—defining the branding, motion design, stage environments, digital assets, and immersive experiences—ensuring every moment felt intentional and elevated across multiple venues in Miami. <br/><br/> The design system was crafted to reflect Ripple's commitment to innovation and the transformative power of blockchain technology. From the dynamic stage visuals to the branded experiences, every element was designed to engage attendees and foster a sense of community and excitement about the future of finance.",
       descriptionTitle: "Designing a Cohesive Brand Experience for a Global Summit", 
+    },
+  },
+  {
+    slug: "stablecoin-rlusd",
+    name: "Stablecoin RLUSD",
+    thumbnail: "/stablecoin_rlusd/stablecoin_rlusd-thumbnail.png",
+    tags: ["Motion", "Design", "3D", "Branding"],
+    keyskills: ["Design", "3D","Animation", "Branding", "Cinema 4D", "After Effects", "Figma"],
+    reelVideoUrl: "/stablecoin_rlusd/stablecoin_rlusd-preview.mp4",
+    heroImage: "/stablecoin_rlusd/stablecoin_rlusd-thumbnail.png", 
+    info: {
+      client: "Ripple",
+      year: "2025",
+      description: "Ripple introduced Ripple USD, a USD-denominated stablecoin designed to maintain the constant value of one U.S. dollar. As part of this launch, I helped develop and animate the visual language centered around the idea of “liquidity” — a principle at the heart of financial markets. <br/><br/> I created and staged 3D scenes, designed social campaigns and physical assets, and a case study to support Ripple’s introduction of a new asset and a new way of moving value. Together, these elements formed a cohesive system that balanced clarity, trust, and innovation, reinforcing Ripple’s leadership in the rapidly growing $220 billion stablecoin market.",
+      descriptionTitle: "Bringing Ripple USD to Life with Bold, Vibrant Design", 
     },
   },
 ];
