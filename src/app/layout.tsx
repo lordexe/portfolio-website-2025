@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Home | Portfolio",
-  description: "A minimalist starting point for the portfolio homepage.",
+  title: "Ani Chauhan - Designer, Animator, Developer",
+  description: "Ani Chauhan's Portfolio - Designer, Animator, Developer",
 };
 
 export default function RootLayout({
