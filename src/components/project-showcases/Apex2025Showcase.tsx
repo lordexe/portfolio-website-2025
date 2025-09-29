@@ -1,7 +1,18 @@
 import React from 'react';
 import Image from 'next/image';
 
-const APEX_SHOWCASE_DATA = [
+type ShowcaseItem = {
+  src?: string;
+  alt?: string;
+  colSpan: 1 | 2 | 4;
+  ratio: 'square' | 'wide' | string;
+  type: 'img' | 'video' | 'embed' | 'text';
+  embedHtml?: string;
+  title?: string;
+  description?: string;
+};
+
+const APEX_SHOWCASE_DATA: ShowcaseItem[] = [
   { 
     src: '/apex_2025/Apex_2025-Mockup.png', 
     alt: 'Apex 2025 Social Mockup', 
@@ -169,7 +180,7 @@ const colSpanClasses = {
 const contentClass = "w-full h-full";
 const mediaClass = "object-cover transition-transform duration-300 hover:scale-105";
 
-export const Apex2025Showcase = () => {
+export const Apex2025Showcase = (): React.ReactElement => {
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
       {APEX_SHOWCASE_DATA.map((item, index) => {
@@ -190,8 +201,8 @@ export const Apex2025Showcase = () => {
         if (item.type === 'video') {
             content = (
                 <video
-                  src={item.src}
-                  alt={item.alt}
+                  src={item.src!}
+                  aria-label={item.alt}
                   className={`${contentClass} ${mediaClass}`}
                   autoPlay
                   loop
@@ -212,8 +223,8 @@ export const Apex2025Showcase = () => {
             content = (
                 <div className={`relative ${contentClass}`}>
                   <Image
-                    src={item.src}
-                    alt={item.alt}
+                    src={item.src!}
+                    alt={item.alt ?? ''}
                     fill
                     className={mediaClass}
                     sizes="(min-width: 1280px) 25vw, (min-width: 768px) 33vw, 100vw"

@@ -5,7 +5,25 @@ import { ArrowUpRight } from 'lucide-react';
 const HIGHLIGHT_COLOR = '#D2F65A';
 const HIGHLIGHT_STYLE = { color: HIGHLIGHT_COLOR };
 
-const InlineLink = ({ href, children }) => {
+type ShowcaseItem = {
+  src?: string;
+  alt?: string;
+  colSpan: 1 | 2 | 4;
+  ratio: 'square' | 'wide' | string;
+  type: 'img' | 'video' | 'embed' | 'text';
+  embedHtml?: string;
+  title?: string;
+  description?: string;
+  linkText?: string;
+  linkHref?: string;
+};
+
+type InlineLinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
+  href: string;
+  children: React.ReactNode;
+};
+
+const InlineLink: React.FC<InlineLinkProps> = ({ href, children, ...props }) => {
   return (
     <a
       href={href}
@@ -19,7 +37,7 @@ const InlineLink = ({ href, children }) => {
   );
 };
 
-const parseTextWithCustomTags = (text, startTag, endTag, style) => {
+const parseTextWithCustomTags = (text: string, startTag: string, endTag: string, style?: React.CSSProperties) => {
   if (!text) return null;
   
   const parts = text.split(startTag);
@@ -40,7 +58,7 @@ const parseTextWithCustomTags = (text, startTag, endTag, style) => {
   });
 };
 
-const SWELLMIAMI_SHOWCASE_DATA = [
+const SWELLMIAMI_SHOWCASE_DATA: ShowcaseItem[] = [
   {
     alt: 'Swell Miami Recap',
     colSpan: 4,
@@ -81,7 +99,7 @@ const colSpanClasses = {
 const contentClass = "w-full h-full";
 const mediaClass = "object-cover transition-transform duration-300 hover:scale-105";
 
-export const SwellMiamiRefreshShowcase = () => {
+export const SwellMiamiRefreshShowcase = (): React.ReactElement => {
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
       {SWELLMIAMI_SHOWCASE_DATA.map((item, index) => {
@@ -103,9 +121,9 @@ export const SwellMiamiRefreshShowcase = () => {
              content = (
                 <div className="flex flex-col items-start justify-start h-full w-full">
                     <div className="p-0">
-                        <h2 className="text-left text-5xl font-normal mb-4 text-white">
-                            {parseTextWithCustomTags(item.title, '##HL_START##', '##HL_END##', HIGHLIGHT_STYLE)}
-                        </h2>
+            <h2 className="text-left text-5xl font-normal mb-4 text-white">
+              {item.title ? parseTextWithCustomTags(item.title, '##HL_START##', '##HL_END##', HIGHLIGHT_STYLE) : null}
+            </h2>
                         <p className="text-left text-white opacity-90">
                             {item.description}
                             {item.linkText && item.linkHref && (
@@ -121,8 +139,8 @@ export const SwellMiamiRefreshShowcase = () => {
         } else if (item.type === 'video') {
             content = (
                 <video
-                  src={item.src}
-                  alt={item.alt}
+                  src={item.src!}
+                  aria-label={item.alt}
                   className={`${contentClass} ${mediaClass}`}
                   autoPlay
                   loop
@@ -143,8 +161,8 @@ export const SwellMiamiRefreshShowcase = () => {
             content = (
                 <div className={`relative ${contentClass}`}>
                   <Image
-                    src={item.src}
-                    alt={item.alt}
+                    src={item.src!}
+                    alt={item.alt ?? ''}
                     fill
                     className={mediaClass}
                     sizes="(min-width: 1280px) 25vw, (min-width: 768px) 33vw, 100vw"
@@ -156,7 +174,7 @@ export const SwellMiamiRefreshShowcase = () => {
         return (
           <div
             key={index}
-            className={`col-span-2 ${colSpanClasses[item.colSpan]} overflow-hidden ${item.type !== 'text' ? 'rounded-xl md:rounded-2xl' : ''} ${aspectRatioClass} ${item.type === 'embed' ? 'bg-black' : ''} ${item.type === 'text' ? 'bg-transparent' : ''}`}
+            className={`col-span-2 ${colSpanClasses[item.colSpan as 1 | 2 | 4]} overflow-hidden ${item.type !== 'text' ? 'rounded-xl md:rounded-2xl' : ''} ${aspectRatioClass} ${item.type === 'embed' ? 'bg-black' : ''} ${item.type === 'text' ? 'bg-transparent' : ''}`}
           >
             {content}
           </div>

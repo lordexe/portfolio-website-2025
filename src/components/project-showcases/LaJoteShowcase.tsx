@@ -5,13 +5,32 @@ import { ArrowUpRight } from 'lucide-react';
 const HIGHLIGHT_COLOR = '#D2F65A';
 const HIGHLIGHT_STYLE = { color: HIGHLIGHT_COLOR };
 
-const InlineLink = ({ href, children }) => {
+type ShowcaseItem = {
+  src?: string;
+  alt?: string;
+  colSpan: 1 | 2 | 4;
+  ratio: 'square' | 'wide' | string;
+  type: 'img' | 'video' | 'embed' | 'text';
+  embedHtml?: string;
+  title?: string;
+  description?: string;
+  linkText?: string;
+  linkHref?: string;
+};
+
+type InlineLinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
+  href: string;
+  children: React.ReactNode;
+};
+
+const InlineLink: React.FC<InlineLinkProps> = ({ href, children, ...props }) => {
   return (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
       className="inline-flex items-center space-x-1 text-white/70 hover:text-white transition-colors duration-200 underline underline-offset-4 group"
+      {...props}
     >
       <span>{children}</span>
       <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-[1px] group-hover:-translate-y-[1px]" />
@@ -19,9 +38,9 @@ const InlineLink = ({ href, children }) => {
   );
 };
 
-const parseTextWithCustomTags = (text, startTag, endTag, style) => {
+const parseTextWithCustomTags = (text: string, startTag: string, endTag: string, style?: React.CSSProperties) => {
   if (!text) return null;
-  
+
   const parts = text.split(startTag);
 
   return parts.map((section, sectionIndex) => {
@@ -40,7 +59,7 @@ const parseTextWithCustomTags = (text, startTag, endTag, style) => {
   });
 };
 
-const LAJOTE_SHOWCASE_DATA = [
+const LAJOTE_SHOWCASE_DATA: ShowcaseItem[] = [
   { 
     title: 'COMMERCIAL MODELLED, STAGED, AND ANIMATED IN CINEMA4D + REDSHIFT',
     colSpan: 2, 
@@ -95,7 +114,7 @@ const colSpanClasses = {
 const contentClass = "w-full h-full";
 const mediaClass = "object-cover transition-transform duration-300 hover:scale-105";
 
-export const LaJoteRefreshShowcase = () => {
+export const LaJoteRefreshShowcase = (): React.ReactElement => {
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
       {LAJOTE_SHOWCASE_DATA.map((item, index) => {
@@ -117,9 +136,9 @@ export const LaJoteRefreshShowcase = () => {
              content = (
                 <div className="flex flex-col items-start justify-start h-full w-full">
                     <div className="p-0">
-                        <h2 className="text-left text-5xl font-normal mb-4 text-white">
-                            {parseTextWithCustomTags(item.title, '##HL_START##', '##HL_END##', HIGHLIGHT_STYLE)}
-                        </h2>
+            <h2 className="text-left text-5xl font-normal mb-4 text-white">
+              {item.title ? parseTextWithCustomTags(item.title, '##HL_START##', '##HL_END##', HIGHLIGHT_STYLE) : null}
+            </h2>
                         <p className="text-left text-white opacity-90">
                             {item.description}
                             {item.linkText && item.linkHref && (
@@ -135,8 +154,8 @@ export const LaJoteRefreshShowcase = () => {
         } else if (item.type === 'video') {
             content = (
                 <video
-                  src={item.src}
-                  alt={item.alt}
+                  src={item.src!}
+                  aria-label={item.alt}
                   className={`${contentClass} ${mediaClass}`}
                   autoPlay
                   loop
@@ -157,8 +176,8 @@ export const LaJoteRefreshShowcase = () => {
             content = (
                 <div className={`relative ${contentClass}`}>
                   <Image
-                    src={item.src}
-                    alt={item.alt}
+                    src={item.src!}
+                    alt={item.alt ?? ''}
                     fill
                     className={mediaClass}
                     sizes="(min-width: 1280px) 25vw, (min-width: 768px) 33vw, 100vw"

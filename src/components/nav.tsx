@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 
 // Mocking the Next.js Link component for compatibility in this environment.
 // In your Next.js project, you would use: import Link from "next/link";
-const Link = ({ href, children, ...props }) => (
+type LinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
+  href: string;
+  children: React.ReactNode;
+};
+
+const Link: React.FC<LinkProps> = ({ href, children, ...props }) => (
   <a href={href} {...props}>
     {children}
   </a>
@@ -31,11 +36,11 @@ const contactLink: NavLink = {
 
 const mobileMenuLinks: NavLink[] = [...links, contactLink];
 
-export function Nav() {
+export function Nav(): React.ReactElement {
   const [open, setOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isButtonHovered, setIsButtonHovered] = useState(false);
-  const [hoveredLink, setHoveredLink] = useState(null);
+  const [hoveredLink, setHoveredLink] = useState<string | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -56,7 +61,7 @@ export function Nav() {
     };
   }, [open]);
 
-  const navLinksContainerVariants = {
+  const navLinksContainerVariants: Variants = {
     visible: {
       transition: {
         staggerChildren: 0.08,
@@ -66,12 +71,12 @@ export function Nav() {
     hidden: { transition: { staggerChildren: 0.05, staggerDirection: -1 } },
   };
 
-  const navLinkVariants = {
+  const navLinkVariants: Variants = {
     visible: { y: 0, opacity: 1, transition: { type: "tween", duration: 0.4, ease: "circOut" } },
     hidden: { y: "-150%", opacity: 1, transition: { type: "tween", duration: 0.3, ease: "circIn" } },
   };
 
-  const mobileMenuContainerVariants = {
+  const mobileMenuContainerVariants: Variants = {
     open: {
       transition: { staggerChildren: 0.07, delayChildren: 0.2 },
     },
@@ -80,7 +85,7 @@ export function Nav() {
     },
   };
   
-  const mobileLinkVariants = {
+  const mobileLinkVariants: Variants = {
     open: { y: 0, opacity: 1, transition: { type: "tween", ease: "circOut", duration: 0.4 } },
     closed: { y: "100%", opacity: 0, transition: { type: "tween", ease: "circIn", duration: 0.3 } },
   };
