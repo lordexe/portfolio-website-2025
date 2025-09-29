@@ -24,10 +24,10 @@ const RAW_PROJECTS: CoreProjectData[] = [
   {
     slug: "apex-2025",
     name: "Apex 2025",
-    thumbnail: "/apex_2025/Apex_2025-thumbnail.png",
+  thumbnail: "/apex_2025/Apex_2025-Thumbnail.png",
     tags: ["Design", "Motion", "Branding", "Development"],
     keyskills: ["Creative Direction", "Design", "Animation", "Development", "Webflow", "Figma", "After Effects"],
-    reelVideoUrl: "/apex_2025/Apex_2025-preview.mp4",
+  reelVideoUrl: "/apex_2025/Apex_2025-Preview.mp4",
     heroImage: "/apex_2025/Apex_2025-Hero.jpg",
     info: {
       client: "XRP Ledger",
