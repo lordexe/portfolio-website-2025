@@ -2,13 +2,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, useAnimate } from "framer-motion";
+import { cubicBezier, motion, useAnimate } from "framer-motion";
 
 interface LoaderAnimationProps {
   onComplete: () => void;
 }
 
-const EASE_IN_OUT_EXPO = [0.87, 0, 0.13, 1];
+const EASE_IN_OUT_EXPO = cubicBezier(0.87, 0, 0.13, 1);
 
 export const LoaderAnimation: React.FC<LoaderAnimationProps> = ({ onComplete }) => {
   const [videoLoaded, setVideoLoaded] = useState(false);

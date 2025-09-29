@@ -2,7 +2,7 @@
 
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
-import { motion, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion";
+import { cubicBezier, motion, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion";
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { ALL_PROJECTS, ProjectData } from "@/data/projects";
@@ -11,8 +11,8 @@ import Player from '@vimeo/player';
 const NAV_HEIGHT = '88px';
 const FIXED_TOP_HEIGHT = '300px';
 const BACKGROUND_COLOR = '#18181a';
-const EASE_IN_OUT_EXPO = [0.7, 0, 0.15, 1];
-const EASE_OUT_EXPO = [0.16, 1, 0.3, 1];
+const EASE_IN_OUT_EXPO = cubicBezier(0.7, 0, 0.15, 1);
+const EASE_OUT_EXPO = cubicBezier(0.16, 1, 0.3, 1);
 const DURATION = 0.7;
 const VIMEO_VIDEO_ID = '1122734552';
 
