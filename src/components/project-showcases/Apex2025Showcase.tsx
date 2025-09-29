@@ -14,140 +14,140 @@ type ShowcaseItem = {
 
 const APEX_SHOWCASE_DATA: ShowcaseItem[] = [
   { 
-    src: '/apex_2025/Apex_2025-Mockup.png', 
+    src: '/apex_2025/apex_2025-mockup.png', 
     alt: 'Apex 2025 Social Mockup', 
     colSpan: 2, 
     ratio: 'square',
     type: 'img'
   },
   { 
-    src: '/apex_2025/Apex_2025-Website.gif', 
+    src: '/apex_2025/apex_2025-website.gif', 
     alt: 'Apex 2025 Website Mockup', 
     colSpan: 2, 
     ratio: 'square',
     type: 'img'
   },
   { 
-    src: '/apex_2025/Apex_2025-Stage3.png', 
+    src: '/apex_2025/apex_2025-stage3.png', 
     alt: 'Apex 2025 Stage Design', 
     colSpan: 4, 
     ratio: 'wide',
     type: 'img'
   },
   { 
-    src: '/apex_2025/Apex_2025-Prod.png', 
+    src: '/apex_2025/apex_2025-prod.png', 
     alt: 'Apex 2025 Barista Swag', 
     colSpan: 1, 
     ratio: 'square',
     type: 'img'
   },
   { 
-    src: '/apex_2025/Apex_2025-Prod3.png', 
+    src: '/apex_2025/apex_2025-prod3.png', 
     alt: 'Apex 2025 Pins', 
     colSpan: 1, 
     ratio: 'square',
     type: 'img'
   },
   { 
-    src: '/apex_2025/Apex_2025-Speakers.mp4', 
+    src: '/apex_2025/apex_2025-speakers.mp4', 
     alt: 'Apex 2025 Pillar', 
     colSpan: 1, 
     ratio: 'square',
     type: 'video'
   },
   { 
-    src: '/apex_2025/Apex_2025-Prod4.png', 
+    src: '/apex_2025/apex_2025-prod4.png', 
     alt: 'Apex 2025 Swag', 
     colSpan: 1, 
     ratio: 'square',
     type: 'img'
   },
   { 
-    src: '/apex_2025/Apex_2025-Banner.png', 
+    src: '/apex_2025/apex_2025-banner.png', 
     alt: 'Apex 2025 Banner', 
     colSpan: 4, 
     ratio: 'wide',
     type: 'img'
   },
   { 
-    src: '/apex_2025/Apex_2025-Language.png', 
+    src: '/apex_2025/apex_2025-language.png', 
     alt: 'Apex 2025 Design', 
     colSpan: 4, 
     ratio: 'wide',
     type: 'img'
   },
   { 
-    src: '/apex_2025/Apex_2025-Layards.png', 
+    src: '/apex_2025/apex_2025-layards.png', 
     alt: 'Apex 2025 Lanyards', 
     colSpan: 2, 
     ratio: 'wide',
     type: 'img'
   },
   { 
-    src: '/apex_2025/Apex_2025-Prod2.png', 
+    src: '/apex_2025/apex_2025-prod2.png', 
     alt: 'Apex 2025 Desk', 
     colSpan: 2, 
     ratio: 'wide',
     type: 'img'
   },
   { 
-    src: '/apex_2025/Apex_2025-Audience.jpg', 
+    src: '/apex_2025/apex_2025-audience.jpg', 
     alt: 'Apex 2025 Audience', 
     colSpan: 1, 
     ratio: 'square',
     type: 'img'
   },
   { 
-    src: '/apex_2025/Apex_2025-Lollipop.png', 
+    src: '/apex_2025/apex_2025-lollipop.png', 
     alt: 'Apex 2025 Lollipop Sign', 
     colSpan: 1, 
     ratio: 'square',
     type: 'img'
   },
   { 
-    src: '/apex_2025/Apex_2025-Signage2.png', 
+    src: '/apex_2025/apex_2025-signage2.png', 
     alt: 'Apex 2025 Desk', 
     colSpan: 1, 
     ratio: 'square',
     type: 'img'
   },
   { 
-    src: '/apex_2025/Apex_2025-Stage4.png', 
+    src: '/apex_2025/apex_2025-stage4.png', 
     alt: 'Apex 2025 Desk', 
     colSpan: 1, 
     ratio: 'square',
     type: 'img'
   },
   { 
-    src: '/apex_2025/Apex_2025-Prod5.png', 
+    src: '/apex_2025/apex_2025-prod5.png', 
     alt: 'Apex 2025 Standing Sign', 
     colSpan: 1, 
     ratio: 'square',
     type: 'img'
   },
   { 
-    src: '/apex_2025/Apex_2025-Stage.png', 
+    src: '/apex_2025/apex_2025-stage.png', 
     alt: 'Apex 2025 Floor Signage', 
     colSpan: 1, 
     ratio: 'square',
     type: 'img'
   },
   { 
-    src: '/apex_2025/Apex_2025-Prod6.png', 
+    src: '/apex_2025/apex_2025-prod6.png', 
     alt: 'Apex 2025 Desk', 
     colSpan: 1, 
     ratio: 'square',
     type: 'img'
   },
   { 
-    src: '/apex_2025/Apex_2025-Stage2.png', 
+    src: '/apex_2025/apex_2025-stage2.png', 
     alt: 'Apex 2025 Desk', 
     colSpan: 1, 
     ratio: 'square',
     type: 'img'
   },
   {
-    src: '/apex_2025/Apex_2025-Stats.png',
+  src: '/apex_2025/apex_2025-stats.png',
     alt: 'Apex 2025 Stats',
     colSpan: 2,
     ratio: 'wide',
