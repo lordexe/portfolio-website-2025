@@ -45,6 +45,26 @@ export default function ProjectPage({ params }) {
   if (!project) {
     return <div className={`flex min-h-screen items-center justify-center bg-[${BACKGROUND_COLOR}] text-[#f4f4f5]`}>Loading Project...</div>;
   }
+  
+  const titleContainerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.06,
+      },
+    },
+  };
+
+  const titleWordVariants = {
+    hidden: { y: "100%" },
+    visible: {
+      y: 0,
+      transition: {
+        duration: 1.2,
+        ease: [0.16, 1, 0.3, 1],
+      },
+    },
+  };
 
   const currentIndex = ALL_PROJECTS.findIndex(p => p.slug === project.slug);
   const nextProjectIndex = (currentIndex + 1) % ALL_PROJECTS.length;
@@ -54,7 +74,7 @@ export default function ProjectPage({ params }) {
     <div className={`flex min-h-screen flex-col bg-[${BACKGROUND_COLOR}]`}>
       
       <div 
-        className={`fixed inset-x-0 top-0 z-50 bg-[${BACKGROUND_COLOR}]`}
+        className={`fixed inset-x-0 top-0 z-50`}
         style={{ height: NAV_HEIGHT }}
       >
         <Nav />
@@ -65,13 +85,29 @@ export default function ProjectPage({ params }) {
         className={`fixed inset-x-0 top-0 z-0 bg-[${BACKGROUND_COLOR}] pointer-events-none`}
         style={{ paddingTop: NAV_HEIGHT }} 
       >
-        <div className="p-20 pb-2 h-full flex flex-col justify-end pointer-events-auto">
+        <div className="h-full flex flex-col justify-end pointer-events-auto px-5 md:px-20 pt-20 pb-2">
           
           <motion.h1 
-            className="font-saans font-regular text-6xl sm:text-4xl md:text-7xl lg:text-9xl leading-tight tracking-tight text-[#f4f4f5] overflow-hidden max-w-[1440px] w-full" 
+            className="font-saans font-regular text-6xl sm:text-4xl md:text-7xl lg:text-9xl leading-tight tracking-tight text-[#f4f4f5] max-w-[1440px] w-full" 
             style={{ y, textAlign: 'left' }}
+            variants={titleContainerVariants}
+            initial="hidden"
+            animate="visible"
           >
-            {project.name}
+            {project.name.split(" ").map((word, index) => (
+              <span
+                key={index}
+                className="inline-block overflow-hidden"
+                style={{ marginRight: '0.15em' }}
+              >
+                <motion.span
+                  className="inline-block"
+                  variants={titleWordVariants}
+                >
+                  {word}
+                </motion.span>
+              </span>
+            ))}
           </motion.h1>
           
         </div>
@@ -82,7 +118,7 @@ export default function ProjectPage({ params }) {
         style={{ paddingTop: FIXED_TOP_HEIGHT }}
       >
         
-        <section id="main" className={`px-20 -my-[80px] pb-[80px]`}>
+        <section id="main" className={`px-5 md:px-20 -my-[80px] pb-[80px]`}>
           <div
             className="h-[150px] w-full"
             style={{
@@ -101,7 +137,7 @@ export default function ProjectPage({ params }) {
           </div>
         </section>
         
-        <section id="project-info" className={`p-20 pt-30 bg-[${BACKGROUND_COLOR}]`}>
+        <section id="project-info" className={`px-5 md:px-20 pt-30 pb-20 bg-[${BACKGROUND_COLOR}]`}>
           <div className="mx-auto flex flex-col md:flex-row gap-12 text-[#f4f4f5]">
             
             <div className="md:w-1/2 flex flex-col gap-10">
@@ -150,13 +186,13 @@ export default function ProjectPage({ params }) {
           </div>
         </section>
         
-        <section id="project-showcase" className={`p-20 pt-16 bg-[${BACKGROUND_COLOR}]`}>
+        <section id="project-showcase" className={`px-5 md:px-20 pt-16 pb-20 bg-[${BACKGROUND_COLOR}]`}>
           <div className="mx-auto">
             {project.showcaseComponent({})}
           </div>
         </section>
 
-        <section id="next-up" className={`p-10 pt-20 bg-[${BACKGROUND_COLOR}]`}>
+        <section id="next-up" className={`px-5 md:px-20 pt-20 pb-10 bg-[${BACKGROUND_COLOR}]`}>
           <div className="text-center">
             <p className="text-lg uppercase tracking-wider text-[#f4f4f5]/60 mb-4">
               Next Up
