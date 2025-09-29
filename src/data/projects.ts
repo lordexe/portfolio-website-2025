@@ -107,6 +107,6 @@ export const ALL_PROJECTS = RAW_PROJECTS.map((project, index) => {
   };
 });
 
-export function getProjectDataBySlug(slug) {
+export function getProjectDataBySlug(slug: string): ProjectData | undefined {
   return ALL_PROJECTS.find(p => p.slug === slug);
 }
