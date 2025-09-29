@@ -163,6 +163,14 @@ const VideoContent: React.FC<MediaProps> = ({ item }) => {
 const ImageContent: React.FC<MediaProps> = ({ item }) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
+  const desktopSizes: { [key: number]: string } = {
+    1: '25vw',
+    2: '50vw',
+    4: '100vw',
+  };
+
+  const dynamicSizes = `(min-width: 768px) ${desktopSizes[item.colSpan]}, 100vw`;
+
   return (
     <div className={`relative ${contentClass}`}>
       {!isLoaded && <Skeleton className="absolute inset-0" aria-hidden="true" />}
@@ -171,7 +179,7 @@ const ImageContent: React.FC<MediaProps> = ({ item }) => {
         alt={item.alt ?? ''}
         fill
         className={cn(mediaClass, 'transition-opacity duration-500', !isLoaded && 'opacity-0')}
-        sizes="(min-width: 1280px) 25vw, (min-width: 768px) 33vw, 100vw"
+        sizes={dynamicSizes}
         onLoadingComplete={() => setIsLoaded(true)}
         onError={() => setIsLoaded(true)}
       />
