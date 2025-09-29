@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
+import { Skeleton } from '@/components/ui/skeleton';
+import { cn } from '@/lib/utils';
 
 type ShowcaseItem = {
   src?: string;
@@ -180,6 +182,78 @@ const colSpanClasses = {
 const contentClass = "w-full h-full";
 const mediaClass = "object-cover transition-transform duration-300 hover:scale-105";
 
+type MediaProps = {
+  item: ShowcaseItem;
+};
+
+const VideoContent: React.FC<MediaProps> = ({ item }) => {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  return (
+    <div className="relative w-full h-full">
+      {!isLoaded && <Skeleton className="absolute inset-0" aria-hidden="true" />}
+      <video
+        src={item.src!}
+        aria-label={item.alt}
+        className={cn(
+          contentClass,
+          mediaClass,
+          'transition-opacity duration-500',
+          !isLoaded && 'opacity-0'
+        )}
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        onLoadedData={() => setIsLoaded(true)}
+        onError={() => setIsLoaded(true)}
+      />
+    </div>
+  );
+};
+
+const ImageContent: React.FC<MediaProps> = ({ item }) => {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  return (
+    <div className={`relative ${contentClass}`}>
+      {!isLoaded && <Skeleton className="absolute inset-0" aria-hidden="true" />}
+      <Image
+        src={item.src!}
+        alt={item.alt ?? ''}
+        fill
+        className={cn(mediaClass, 'transition-opacity duration-500', !isLoaded && 'opacity-0')}
+        sizes="(min-width: 1280px) 25vw, (min-width: 768px) 33vw, 100vw"
+        onLoadingComplete={() => setIsLoaded(true)}
+        onError={() => setIsLoaded(true)}
+      />
+    </div>
+  );
+};
+
+const MediaContent: React.FC<MediaProps> = ({ item }) => {
+  if (item.type === 'embed' && item.embedHtml) {
+    return (
+      <div
+        className={`${contentClass} non-scaling-embed`}
+        dangerouslySetInnerHTML={{ __html: item.embedHtml }}
+        style={{ position: 'relative', width: '100%', height: '100%' }}
+      />
+    );
+  }
+
+  if (item.type === 'video') {
+    return <VideoContent item={item} />;
+  }
+
+  if (item.type === 'img') {
+    return <ImageContent item={item} />;
+  }
+
+  return null;
+};
+
 export const Apex2025Showcase = (): React.ReactElement => {
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
@@ -196,56 +270,19 @@ export const Apex2025Showcase = (): React.ReactElement => {
             }
         }
 
-        let content;
-        
-        if (item.type === 'video') {
-            content = (
-                <video
-                  src={item.src!}
-                  aria-label={item.alt}
-                  className={`${contentClass} ${mediaClass}`}
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  preload="auto"
-                />
-            );
-        } else if (item.type === 'embed' && item.embedHtml) {
-             content = (
-                <div
-                    className={`${contentClass} non-scaling-embed`}
-                    dangerouslySetInnerHTML={{ __html: item.embedHtml }}
-                    style={{ position: 'relative', width: '100%', height: '100%' }}
-                />
-             );
-        } else {
-            content = (
-                <div className={`relative ${contentClass}`}>
-                  <Image
-                    src={item.src!}
-                    alt={item.alt ?? ''}
-                    fill
-                    className={mediaClass}
-                    sizes="(min-width: 1280px) 25vw, (min-width: 768px) 33vw, 100vw"
-                  />
-                </div>
-            );
-        }
-        
         return (
           <div
             key={index}
             className={`
-              col-span-2 
-              ${colSpanClasses[item.colSpan]} 
-              overflow-hidden 
-              rounded-xl md:rounded-2xl 
-              ${aspectRatioClass} 
+              col-span-2
+              ${colSpanClasses[item.colSpan]}
+              overflow-hidden
+              rounded-xl md:rounded-2xl
+              ${aspectRatioClass}
               ${item.type === 'embed' ? 'bg-black' : ''}
             `}
           >
-            {content}
+            <MediaContent item={item} />
           </div>
         );
       })}

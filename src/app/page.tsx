@@ -2,6 +2,8 @@
 
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
+import { Skeleton } from "@/components/ui/skeleton";
+import { cn } from "@/lib/utils";
 import { cubicBezier, motion, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion";
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
@@ -22,6 +24,8 @@ interface ProjectCardProps {
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [isThumbnailLoaded, setIsThumbnailLoaded] = useState(false);
+  const [isPreviewLoaded, setIsPreviewLoaded] = useState(false);
   const cardRef = useRef<HTMLDivElement | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -96,6 +100,52 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
     },
   };
 
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const image = new Image();
+    image.src = project.thumbnail;
+
+    const handleLoad = () => setIsThumbnailLoaded(true);
+    image.addEventListener("load", handleLoad);
+    image.addEventListener("error", handleLoad);
+
+    if (image.complete) {
+      setIsThumbnailLoaded(true);
+    }
+
+    return () => {
+      image.removeEventListener("load", handleLoad);
+      image.removeEventListener("error", handleLoad);
+    };
+  }, [project.thumbnail]);
+
+  useEffect(() => {
+    const videoElement = videoRef.current;
+
+    if (!videoElement) {
+      return;
+    }
+
+    const markLoaded = () => setIsPreviewLoaded(true);
+
+    if (videoElement.readyState >= 2) {
+      setIsPreviewLoaded(true);
+    }
+
+    videoElement.addEventListener("loadeddata", markLoaded);
+    videoElement.addEventListener("canplay", markLoaded);
+    videoElement.addEventListener("error", markLoaded);
+
+    return () => {
+      videoElement.removeEventListener("loadeddata", markLoaded);
+      videoElement.removeEventListener("canplay", markLoaded);
+      videoElement.removeEventListener("error", markLoaded);
+    };
+  }, [project.reelVideoUrl]);
+
   return (
     <Link href={`/projects/${project.slug}`} className="block">
       <motion.div
@@ -107,13 +157,20 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         onHoverEnd={handleHoverEnd}
       >
         <motion.div
-          className="absolute inset-0 bg-cover bg-center"
+          className={cn(
+            "absolute inset-0 bg-cover bg-center transition-opacity duration-500",
+            !isThumbnailLoaded && "opacity-0"
+          )}
           style={{ backgroundImage: `url(${project.thumbnail})` }}
           variants={imageVariants}
           initial="initial"
           animate={isHovered ? "hover" : "initial"}
           transition={{ duration: DURATION, ease: "easeInOut" }}
         />
+
+        {!isThumbnailLoaded && (
+          <Skeleton className="absolute inset-0" aria-hidden="true" />
+        )}
         
         <div className="absolute inset-0"></div>
 
@@ -127,26 +184,35 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           
           <div className="flex justify-center items-center h-full pointer-events-none">
             <motion.div
-              className="w-full max-w-[85%] bg-[#f4f4f5]/20 backdrop-blur-sm rounded-md flex justify-center items-center overflow-hidden" 
-              style={{ 
-                aspectRatio: '16 / 9', 
-                x: x, 
-                y: y, 
+              className="w-full max-w-[85%] bg-[#f4f4f5]/20 backdrop-blur-sm rounded-md flex justify-center items-center overflow-hidden"
+              style={{
+                aspectRatio: '16 / 9',
+                x: x,
+                y: y,
               }}
               variants={previewDivVariants}
               initial="initial"
               animate={isHovered ? "hover" : "initial"}
               transition={{ duration: DURATION, ease: EASE_IN_OUT_EXPO }}
             >
-              <video 
-                ref={videoRef}
-                src={project.reelVideoUrl} 
-                autoPlay={false} 
-                loop 
-                muted 
-                playsInline 
-                className="w-full h-full object-cover"
-              />
+              <div className="relative w-full h-full">
+                {!isPreviewLoaded && (
+                  <Skeleton className="absolute inset-0" aria-hidden="true" />
+                )}
+                <video
+                  ref={videoRef}
+                  src={project.reelVideoUrl}
+                  autoPlay={false}
+                  loop
+                  muted
+                  playsInline
+                  preload="metadata"
+                  className={cn(
+                    "w-full h-full object-cover transition-opacity duration-500",
+                    !isPreviewLoaded && "opacity-0"
+                  )}
+                />
+              </div>
             </motion.div>
           </div>
           
@@ -179,8 +245,10 @@ export default function Home() {
 
   const [isReelHovered, setIsReelHovered] = useState(false);
   const [showVimeoPlayer, setShowVimeoPlayer] = useState(false);
+  const [isReelVideoLoaded, setIsReelVideoLoaded] = useState(false);
   const reelRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<Player | null>(null);
+  const showreelVideoRef = useRef<HTMLVideoElement>(null);
 
   const cursorMouseX = useMotionValue(-200);
   const cursorMouseY = useMotionValue(-200);
@@ -253,6 +321,30 @@ export default function Home() {
       }
     };
   }, [showVimeoPlayer]);
+
+  useEffect(() => {
+    const videoElement = showreelVideoRef.current;
+
+    if (!videoElement) {
+      return;
+    }
+
+    const markLoaded = () => setIsReelVideoLoaded(true);
+
+    if (videoElement.readyState >= 2) {
+      setIsReelVideoLoaded(true);
+    }
+
+    videoElement.addEventListener("loadeddata", markLoaded);
+    videoElement.addEventListener("canplay", markLoaded);
+    videoElement.addEventListener("error", markLoaded);
+
+    return () => {
+      videoElement.removeEventListener("loadeddata", markLoaded);
+      videoElement.removeEventListener("canplay", markLoaded);
+      videoElement.removeEventListener("error", markLoaded);
+    };
+  }, []);
 
   return (
     <>
@@ -371,14 +463,24 @@ export default function Home() {
                       </svg>
                     </motion.div>
                     
-                    <video 
-                      src="src/../../home/reel_preview.mp4" 
-                      autoPlay 
-                      loop 
-                      muted 
-                      playsInline 
-                      className="w-full h-full object-cover pointer-events-none"
-                    />
+                    <div className="relative w-full h-full">
+                      {!isReelVideoLoaded && (
+                        <Skeleton className="absolute inset-0" aria-hidden="true" />
+                      )}
+                      <video
+                        ref={showreelVideoRef}
+                        src="/home/reel_preview.mp4"
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        preload="auto"
+                        className={cn(
+                          "w-full h-full object-cover pointer-events-none transition-opacity duration-500",
+                          !isReelVideoLoaded && "opacity-0"
+                        )}
+                      />
+                    </div>
                   </>
                 )}
               </motion.div>

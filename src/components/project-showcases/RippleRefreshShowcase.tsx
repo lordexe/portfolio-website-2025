@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { ArrowUpRight } from 'lucide-react';
+import { Skeleton } from '@/components/ui/skeleton';
+import { cn } from '@/lib/utils';
 
 const HIGHLIGHT_COLOR = '#D2F65A';
 const HIGHLIGHT_STYLE = { color: HIGHLIGHT_COLOR };
@@ -110,6 +112,103 @@ const colSpanClasses = {
 const contentClass = 'w-full h-full';
 const mediaClass = 'object-cover transition-transform duration-300 hover:scale-105';
 
+type MediaProps = {
+  item: ShowcaseItem;
+};
+
+const TextContent: React.FC<MediaProps> = ({ item }) => (
+  <div className="flex flex-col items-start justify-start h-full w-full">
+    <div className="p-0">
+      <h2 className="text-left text-5xl font-normal mb-4 text-white">
+        {item.title ? parseTextWithCustomTags(item.title, '##HL_START##', '##HL_END##', HIGHLIGHT_STYLE) : null}
+      </h2>
+      <p className="text-left text-white opacity-90">
+        {item.description}
+        {item.linkText && item.linkHref && (
+          <>
+            {' '}
+            <InlineLink href={item.linkHref}>{item.linkText}</InlineLink>
+          </>
+        )}
+      </p>
+    </div>
+  </div>
+);
+
+const EmbedContent: React.FC<MediaProps> = ({ item }) => (
+  <div
+    className={`${contentClass} non-scaling-embed`}
+    dangerouslySetInnerHTML={{ __html: item.embedHtml ?? '' }}
+    style={{ position: 'relative', width: '100%', height: '100%' }}
+  />
+);
+
+const VideoContent: React.FC<MediaProps> = ({ item }) => {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  return (
+    <div className="relative w-full h-full">
+      {!isLoaded && <Skeleton className="absolute inset-0" aria-hidden="true" />}
+      <video
+        src={item.src!}
+        aria-label={item.alt}
+        className={cn(
+          contentClass,
+          mediaClass,
+          'transition-opacity duration-500',
+          !isLoaded && 'opacity-0'
+        )}
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        onLoadedData={() => setIsLoaded(true)}
+        onError={() => setIsLoaded(true)}
+      />
+    </div>
+  );
+};
+
+const ImageContent: React.FC<MediaProps> = ({ item }) => {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  return (
+    <div className={`relative ${contentClass}`}>
+      {!isLoaded && <Skeleton className="absolute inset-0" aria-hidden="true" />}
+      <Image
+        src={item.src!}
+        alt={item.alt ?? ''}
+        fill
+        className={cn(mediaClass, 'transition-opacity duration-500', !isLoaded && 'opacity-0')}
+        sizes="(min-width: 1280px) 25vw, (min-width: 768px) 33vw, 100vw"
+        onLoadingComplete={() => setIsLoaded(true)}
+        onError={() => setIsLoaded(true)}
+      />
+    </div>
+  );
+};
+
+const MediaContent: React.FC<MediaProps> = ({ item }) => {
+  if (item.type === 'text') {
+    return <TextContent item={item} />;
+  }
+
+  if (item.type === 'embed') {
+    return <EmbedContent item={item} />;
+  }
+
+  if (item.type === 'video') {
+    return <VideoContent item={item} />;
+  }
+
+  if (item.type === 'img') {
+    return <ImageContent item={item} />;
+  }
+
+  return null;
+};
+
 export const RippleRefreshShowcase = (): React.ReactElement => {
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
@@ -126,62 +225,12 @@ export const RippleRefreshShowcase = (): React.ReactElement => {
           }
         }
 
-        let content: React.ReactNode;
-
-        if (item.type === 'text') {
-          content = (
-            <div className="flex flex-col items-start justify-start h-full w-full">
-              <div className="p-0">
-                <h2 className="text-left text-5xl font-normal mb-4 text-white">
-                  {item.title ? parseTextWithCustomTags(item.title, '##HL_START##', '##HL_END##', HIGHLIGHT_STYLE) : null}
-                </h2>
-                <p className="text-left text-white opacity-90">
-                  {item.description}
-                  {item.linkText && item.linkHref && (
-                    <>
-                      {' '}
-                      <InlineLink href={item.linkHref}>{item.linkText}</InlineLink>
-                    </>
-                  )}
-                </p>
-              </div>
-            </div>
-          );
-        } else if (item.type === 'video') {
-          content = (
-            <video
-              src={item.src!}
-              aria-label={item.alt}
-              className={`${contentClass} ${mediaClass}`}
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="auto"
-            />
-          );
-        } else if (item.type === 'embed' && item.embedHtml) {
-          content = (
-            <div
-              className={`${contentClass} non-scaling-embed`}
-              dangerouslySetInnerHTML={{ __html: item.embedHtml }}
-              style={{ position: 'relative', width: '100%', height: '100%' }}
-            />
-          );
-        } else {
-          content = (
-            <div className={`relative ${contentClass}`}>
-              <Image src={item.src!} alt={item.alt ?? ''} fill className={mediaClass} sizes="(min-width: 1280px) 25vw, (min-width: 768px) 33vw, 100vw" />
-            </div>
-          );
-        }
-
         return (
           <div
             key={index}
             className={`col-span-2 ${colSpanClasses[item.colSpan as 1 | 2 | 4]} overflow-hidden ${item.type !== 'text' ? 'rounded-xl md:rounded-2xl' : ''} ${aspectRatioClass} ${item.type === 'embed' ? 'bg-black' : ''} ${item.type === 'text' ? 'bg-transparent' : ''}`}
           >
-            {content}
+            <MediaContent item={item} />
           </div>
         );
       })}

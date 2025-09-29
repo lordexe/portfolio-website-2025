@@ -2,9 +2,11 @@
 
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
+import { Skeleton } from "@/components/ui/skeleton";
+import { cn } from "@/lib/utils";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
-import { ComponentType, ReactNode } from "react";
+import { ComponentType, ReactNode, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { ProjectData } from "@/data/projects";
 import { Apex2025Showcase } from "@/components/project-showcases/Apex2025Showcase";
@@ -54,6 +56,7 @@ export function ProjectPageClient({ project, nextProject }: ProjectPageClientPro
   const yRange = ["0%", "-550%"];
   const y = useTransform(scrollYProgress, [0, 1], yRange);
   const ShowcaseComponent = showcaseComponents[project.slug];
+  const [isHeroLoaded, setIsHeroLoaded] = useState(false);
 
   const titleContainerVariants = {
     hidden: {},
@@ -119,13 +122,21 @@ export function ProjectPageClient({ project, nextProject }: ProjectPageClientPro
           />
           <div className={`bg-[${BACKGROUND_COLOR}]`}>
             <div className="relative w-full aspect-video rounded-3xl overflow-hidden bg-gray-700">
+              {!isHeroLoaded && (
+                <Skeleton className="absolute inset-0" aria-hidden="true" />
+              )}
               <Image
                 src={project.heroImage}
                 alt={`${project.name} main showcase image`}
                 fill
-                className="object-cover"
+                className={cn(
+                  "object-cover transition-opacity duration-700",
+                  !isHeroLoaded && "opacity-0"
+                )}
                 sizes="(min-width: 1024px) 70vw, 100vw"
                 priority
+                onLoadingComplete={() => setIsHeroLoaded(true)}
+                onError={() => setIsHeroLoaded(true)}
               />
             </div>
           </div>
