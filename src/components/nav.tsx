@@ -12,18 +12,24 @@ const Link = ({ href, children, ...props }) => (
 
 const BRAND_COLOR = "#D2F65A";
 
-const links = [
+type NavLink = {
+  href: string;
+  label: string;
+  scrollToId?: string;
+};
+
+const links: NavLink[] = [
   { href: "/", label: "Home" },
-  { href: "/projects", label: "Projects" },
+  { href: "/#projects", label: "Projects", scrollToId: "projects" },
   { href: "/about", label: "About" },
 ];
 
-const contactLink = {
+const contactLink: NavLink = {
   href: "mailto:thechauhananirudh@gmail.com",
   label: "Get in Touch",
 };
 
-const mobileMenuLinks = [...links, contactLink];
+const mobileMenuLinks: NavLink[] = [...links, contactLink];
 
 export function Nav() {
   const [open, setOpen] = useState(false);
@@ -79,6 +85,31 @@ export function Nav() {
     closed: { y: "100%", opacity: 0, transition: { type: "tween", ease: "circIn", duration: 0.3 } },
   };
 
+  const handleNavLinkClick = (
+    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+    link: NavLink
+  ) => {
+    if (link.scrollToId && typeof window !== "undefined") {
+      const isHomePage = window.location.pathname === "/";
+      const targetElement = document.getElementById(link.scrollToId);
+
+      if (isHomePage && targetElement) {
+        event.preventDefault();
+        targetElement.scrollIntoView({ behavior: "smooth" });
+
+        if (open) {
+          setOpen(false);
+        }
+
+        return;
+      }
+    }
+
+    if (open) {
+      setOpen(false);
+    }
+  };
+
   return (
     <header className={`px-5 md:px-20 fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? "py-3" : "py-5"}`}>
       <nav className="relative flex w-full items-center">
@@ -123,6 +154,7 @@ export function Nav() {
                 )}
                 <Link
                   href={l.href}
+                  onClick={(event) => handleNavLinkClick(event, l)}
                   className={`relative z-10 block px-4 py-1.5 transition-all duration-300 ${
                     hoveredLink ? (hoveredLink === l.href ? "text-[#fafafa]" : "opacity-60") : "hover:text-[#fafafa]"
                   }`}
@@ -217,8 +249,8 @@ export function Nav() {
                   <motion.div variants={mobileLinkVariants}>
                     <Link
                       href={l.href}
+                      onClick={(event) => handleNavLinkClick(event, l)}
                       className="block py-2 pl-4 text-lg font-semibold text-[#18181a] hover:opacity-80"
-                      onClick={() => setOpen(false)}
                     >
                       {l.label}
                     </Link>
