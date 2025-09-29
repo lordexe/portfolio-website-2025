@@ -28,7 +28,7 @@ const RAW_PROJECTS: CoreProjectData[] = [
     tags: ["Design", "Motion", "Branding", "Development"],
     keyskills: ["Creative Direction", "Design", "Animation", "Development", "Webflow", "Figma", "After Effects"],
   reelVideoUrl: "/apex_2025/apex_2025-preview.mp4",
-    heroImage: "/apex_2025/Apex_2025-Hero.jpg",
+    heroImage: "/apex_2025/apex_2025-hero.jpg",
     info: {
       client: "XRP Ledger",
       year: "2025",
