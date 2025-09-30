@@ -22,6 +22,23 @@ export interface ProjectData extends CoreProjectData {
 }
 
 const RAW_PROJECTS: CoreProjectData[] = [
+    {
+    slug: "ripple-brand-refresh",
+    name: "Ripple Brand Refresh",
+    thumbnail: "/ripple_refresh/ripple_refresh-thumbnail.png",
+    tags: ["Motion", "Design", "Branding", "Development"],
+    keyskills: ["Lead Motion Direction", "Animation", "Design", "Development", "Scripting", "Figma", "After Effects", "Cinema4D"],
+    reelVideoUrl: "/ripple_refresh/ripple_refresh-preview.mp4",
+    heroImage: "/ripple_refresh/ripple_refresh-hero.png", 
+    info: {
+      client: "Ripple",
+      year: "2025",
+      team: "Ripple Design Team",
+      description: "Ripple, a global leader in blockchain-based financial services, set out to refresh its brand system to reflect growth and expand its storytelling capabilities. As part of this initiative, I contributed to the refreshed identity and led the creation of Ripple’s motion system. <br/><br/> Animating illustrations, creating detailed motion guidelines, building a custom plugin, and developing reusable templates—together these formed a scalable framework that reinforces Ripple’s values of speed, security, and clarity, turning motion into a core asset that powers the refreshed identity across digital platforms.",
+      descriptionTitle: "Translating Complex Technology into Simple, Expressive Motion", 
+      siteUrl: "https://brand.ripple.com/",
+    },
+  },
   {
     slug: "apex-2025",
     name: "Apex 2025",
@@ -37,23 +54,6 @@ const RAW_PROJECTS: CoreProjectData[] = [
       team: "Ripple Design Team, Invisible North",
       descriptionTitle: "The fifth annual global summmit for the XRPL Community, hosted in Singapore", 
       siteUrl: "https://www.xrpledgerapex.com/",
-    },
-  },
-  {
-    slug: "ripple-brand-refresh",
-    name: "Ripple Brand Refresh",
-    thumbnail: "/ripple_refresh/ripple_refresh-thumbnail.png",
-    tags: ["Motion", "Design", "Branding", "Development"],
-    keyskills: ["Lead Motion Direction", "Animation", "Design", "Development", "Scripting", "Figma", "After Effects", "Cinema4D"],
-    reelVideoUrl: "/ripple_refresh/ripple_refresh-preview.mp4",
-    heroImage: "/ripple_refresh/ripple_refresh-hero.png", 
-    info: {
-      client: "Ripple",
-      year: "2025",
-      team: "Ripple Design Team",
-      description: "Ripple, a global leader in blockchain-based financial services, set out to refresh its brand system to reflect growth and expand its storytelling capabilities. As part of this initiative, I contributed to the refreshed identity and led the creation of Ripple’s motion system. <br/><br/> Animating illustrations, creating detailed motion guidelines, building a custom plugin, and developing reusable templates—together these formed a scalable framework that reinforces Ripple’s values of speed, security, and clarity, turning motion into a core asset that powers the refreshed identity across digital platforms.",
-      descriptionTitle: "Translating Complex Technology into Simple, Expressive Motion", 
-      siteUrl: "https://brand.ripple.com/",
     },
   },
   {
@@ -89,22 +89,6 @@ const RAW_PROJECTS: CoreProjectData[] = [
     },
   },
   {
-    slug: "stablecoin-rlusd",
-    name: "Stablecoin RLUSD",
-    thumbnail: "/stablecoin_rlusd/stablecoin_rlusd-thumbnail.png",
-    tags: ["Motion", "Design", "3D", "Branding"],
-    keyskills: ["Design", "3D","Animation", "Branding", "Cinema 4D", "After Effects", "Figma"],
-    reelVideoUrl: "/stablecoin_rlusd/stablecoin_rlusd-preview.mp4",
-    heroImage: "/stablecoin_rlusd/stablecoin_rlusd-thumbnail.png", 
-    info: {
-      client: "Ripple",
-      year: "2025",
-      team: "Ripple Design Team",
-      description: "Ripple introduced Ripple USD, a USD-denominated stablecoin designed to maintain the constant value of one U.S. dollar. As part of this launch, I helped develop and animate the visual language centered around the idea of “liquidity” — a principle at the heart of financial markets. <br/><br/> I created and staged 3D scenes, designed social campaigns and physical assets, and a case study to support Ripple’s introduction of a new asset and a new way of moving value. Together, these elements formed a cohesive system that balanced clarity, trust, and innovation, reinforcing Ripple’s leadership in the rapidly growing $220 billion stablecoin market.",
-      descriptionTitle: "Bringing Ripple USD to Life with Bold, Vibrant Design", 
-    },
-  },
-  {
     slug: "shorts",
     name: "Shorts",
     thumbnail: "/shorts/shorts-thumbnail.png",
@@ -118,6 +102,22 @@ const RAW_PROJECTS: CoreProjectData[] = [
       team: "Solo",
       description: "This is collection of short-form animation experiments I made last year — solo projects I used to learn new techniques and push ideas quickly. One piece was submitted to a community animation challenge for Ravie with the prompt \"glint\". These mini-films are extremely fun for me to make because they let me let loose and try whatever I want: compact, playful, and focused on motion and texture. <br/><br/> Each short is an exercise in speed, creativity, and craft—aimed at exploring new tools, visual languages, and timing in bite-sized form.",
       descriptionTitle: "Short-form animation experiments and solo creative exercises", 
+    },
+  },
+    {
+    slug: "stablecoin-rlusd",
+    name: "Stablecoin RLUSD",
+    thumbnail: "/stablecoin_rlusd/stablecoin_rlusd-thumbnail.png",
+    tags: ["Motion", "Design", "3D", "Branding"],
+    keyskills: ["Design", "3D","Animation", "Branding", "Cinema 4D", "After Effects", "Figma"],
+    reelVideoUrl: "/stablecoin_rlusd/stablecoin_rlusd-preview.mp4",
+    heroImage: "/stablecoin_rlusd/stablecoin_rlusd-thumbnail.png", 
+    info: {
+      client: "Ripple",
+      year: "2025",
+      team: "Ripple Design Team",
+      description: "Ripple introduced Ripple USD, a USD-denominated stablecoin designed to maintain the constant value of one U.S. dollar. As part of this launch, I helped develop and animate the visual language centered around the idea of “liquidity” — a principle at the heart of financial markets. <br/><br/> I created and staged 3D scenes, designed social campaigns and physical assets, and a case study to support Ripple’s introduction of a new asset and a new way of moving value. Together, these elements formed a cohesive system that balanced clarity, trust, and innovation, reinforcing Ripple’s leadership in the rapidly growing $220 billion stablecoin market.",
+      descriptionTitle: "Bringing Ripple USD to Life with Bold, Vibrant Design", 
     },
   },
   {
