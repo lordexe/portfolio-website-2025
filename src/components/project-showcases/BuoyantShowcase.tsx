@@ -62,17 +62,23 @@ const parseTextWithCustomTags = (text: string, startTag: string, endTag: string,
 };
 
 const BUOYANT_SHOWCASE_DATA: ShowcaseItem[] = [
-    { src: '/buoyant/buoyant-motion1.mp4', alt: 'Buoyant Social Card', colSpan: 2, ratio: 'wide', type: 'video' },
-    { src: '/buoyant/buoyant-motion2.mp4', alt: 'Buoyant Intro video', colSpan: 2, ratio: 'wide', type: 'video' },
-    { src: '/buoyant/buoyant-image1.png', alt: 'Buoyant Intro video', colSpan: 4, ratio: 'wide', type: 'img' },
-    { src: '/buoyant/buoyant-image2.png', alt: 'Buoyant Intro video', colSpan: 1, ratio: 'square', type: 'img' },
-    { src: '/buoyant/buoyant-image3.png', alt: 'Buoyant Intro video', colSpan: 1, ratio: 'square', type: 'img' },
-    { src: '/buoyant/buoyant-image4.png', alt: 'Buoyant Intro video', colSpan: 1, ratio: 'square', type: 'img' },
-    { src: '/buoyant/buoyant-image5.png', alt: 'Buoyant Intro video', colSpan: 1, ratio: 'square', type: 'img' },
-    { src: '/buoyant/buoyant-image6.png', alt: 'Buoyant Intro video', colSpan: 1, ratio: 'square', type: 'img' },
-    { src: '/buoyant/buoyant-image7.png', alt: 'Buoyant Intro video', colSpan: 1, ratio: 'square', type: 'img' },
-    { src: '/buoyant/buoyant-image8.png', alt: 'Buoyant Intro video', colSpan: 1, ratio: 'square', type: 'img' },
-    { src: '/buoyant/buoyant-image9.png', alt: 'Buoyant Intro video', colSpan: 1, ratio: 'square', type: 'img' },
+    { 
+    title: 'A COMMERCIAL ANIMATED IN 1 DAY (+ NIGHT) TO SHOW OFF OUR IDEA',
+    colSpan: 2, 
+    ratio: 'wide',
+    type: 'text'
+    },
+    {
+    alt: 'Buoyant Commercial',
+    colSpan: 2,
+    ratio: 'wide',
+    type: 'embed',
+    embedHtml: `<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1123074793?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Buoyant - Ripple Hackathon"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>`
+    },
+    { src: '/buoyant/buoyant-shot1.mp4', alt: 'Buyant Commercial', colSpan: 2, ratio: 'wide', type: 'video' },
+    { src: '/buoyant/buoyant-shot2.mp4', alt: 'Buyant Commercial', colSpan: 2, ratio: 'wide', type: 'video' },
+    { src: '/buoyant/buoyant-shot3.mp4', alt: 'Buyant Commercial', colSpan: 2, ratio: 'wide', type: 'video' },
+    { src: '/buoyant/buoyant-shot4.mp4', alt: 'Buyant Commercial', colSpan: 2, ratio: 'wide', type: 'video' },
 ];
 
 const colSpanClasses = {
