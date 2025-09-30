@@ -99,7 +99,7 @@ export function ProjectPageClient({ project, nextProject }: ProjectPageClientPro
       >
         <div className="h-full flex flex-col justify-end pointer-events-auto px-5 md:px-20 pt-20 pb-2">
           <motion.h1
-            className="font-saans font-regular text-6xl sm:text-4xl md:text-7xl lg:text-9xl leading-tight tracking-tight text-[#f4f4f5] max-w-[1440px] w-full"
+            className="font-saans font-regular leading-tight tracking-tight text-[#f4f4f5] max-w-[1440px] w-full whitespace-nowrap text-[clamp(2.25rem,10vw,8rem)]"
             style={{ y, textAlign: "left" }}
             variants={titleContainerVariants}
             initial="hidden"
