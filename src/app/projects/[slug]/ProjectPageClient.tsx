@@ -14,6 +14,7 @@ import { RippleRefreshShowcase } from "@/components/project-showcases/RippleRefr
 import { LaJoteRefreshShowcase } from "@/components/project-showcases/LaJoteShowcase";
 import { SwellMiamiRefreshShowcase } from "@/components/project-showcases/SwellMiamiShowcase";
 import { StablecoinRlusdShowcase } from "@/components/project-showcases/StablecoinRlusdShowcase";
+import { ShortsShowcase } from "@/components/project-showcases/ShortsShowcase";
 
 const NAV_HEIGHT = "88px";
 const FIXED_TOP_HEIGHT = "300px";
@@ -25,6 +26,7 @@ const showcaseComponents: Record<string, ComponentType> = {
   "la-jote": LaJoteRefreshShowcase,
   "swell-miami": SwellMiamiRefreshShowcase,
   "stablecoin-rlusd": StablecoinRlusdShowcase,
+  "shorts": ShortsShowcase,
 };
 
 const TITLE_EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -171,6 +173,10 @@ export function ProjectPageClient({ project, nextProject }: ProjectPageClientPro
                     </span>
                   ))}
                 </div>
+              </div>
+              <div>
+                <h3 className="text-md text-[#f4f4f5]/60 mb-1">Collaborators</h3>
+                <p className="text-md text-[#f4f4f5]">{project.info.team ?? "Ripple Design Team"}</p>
               </div>
             </div>
 

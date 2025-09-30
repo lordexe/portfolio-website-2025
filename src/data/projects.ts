@@ -11,6 +11,7 @@ export interface CoreProjectData {
     year: string;
     description: string;
     descriptionTitle: string;
+    team?: string;
     siteUrl?: string;
   };
 }
@@ -33,6 +34,7 @@ const RAW_PROJECTS: CoreProjectData[] = [
       client: "XRP Ledger",
       year: "2025",
       description: "Hosted by Ripple, Apex 2025 is the official global community summit that unites developers, innovators, businesses, and investors for an exciting three-day celebration of blockchain technology and the incredible world of the XRP Ledger. <br/> <br/> The event was a landmark success—surpassing registration goals and drawing a global audience of over half a million views. The event featured expansive LED stages, intersecting stage layouts, and a cohesive design system that seamlessly translated from digital to physical. Every detail contributed to a dynamic, memorable experience that showcased the power of community and innovation on a truly global stage.",
+      team: "Ripple Design Team",
       descriptionTitle: "The fifth annual global summmit for the XRPL Community, hosted in Singapore", 
       siteUrl: "https://www.xrpledgerapex.com/",
     },
@@ -48,6 +50,7 @@ const RAW_PROJECTS: CoreProjectData[] = [
     info: {
       client: "Ripple",
       year: "2025",
+      team: "Ripple Design Team",
       description: "Ripple, a global leader in blockchain-based financial services, set out to refresh its brand system to reflect growth and expand its storytelling capabilities. As part of this initiative, I contributed to the refreshed identity and led the creation of Ripple’s motion system. <br/><br/> Animating illustrations, creating detailed motion guidelines, building a custom plugin, and developing reusable templates—together these formed a scalable framework that reinforces Ripple’s values of speed, security, and clarity, turning motion into a core asset that powers the refreshed identity across digital platforms.",
       descriptionTitle: "Translating Complex Technology into Simple, Expressive Motion", 
       siteUrl: "https://brand.ripple.com/",
@@ -64,6 +67,7 @@ const RAW_PROJECTS: CoreProjectData[] = [
     info: {
       client: "Personal Project",
       year: "2024",
+      team: "Solo",
       description: "This project was a calculated experiment in extreme value elevation, proving that perceived product worth is dictated by brand experience, not cost. I took a simple art class prompt—design packaging for a cheap item—and extrapolated it to a real-world concept, selecting a $1 Dollar Tree pen and transforming it into a high-end luxury product. The core challenge was using design, animation, and strategy to generate massive consumer confidence for a minimal investment. <br/><br/> The result is La Jote, a luxury pen brand that redefines value through meticulous design and storytelling. Every element, from the sophisticated logo to the 3D animated commercial and the physical unboxing experience, was crafted to evoke exclusivity. This project underscores the power of branding in shaping consumer perceptions and demonstrates how strategic design, executed across multiple media can elevate even the most ordinary products to extraordinary heights.",
       descriptionTitle: "Elevating a $1 Dollar Tree Item to a $100 Luxury Brand",
     },
@@ -79,6 +83,7 @@ const RAW_PROJECTS: CoreProjectData[] = [
     info: {
       client: "Ripple",
       year: "2024",
+      team: "Ripple Design Team",
       description: "Ripple Swell 2024 convened more than 600 thought leaders, partners, and innovators across the blockchain, finance, and payments industries for two days of forward-looking content and connection. As part of the core creative team, I oversaw the unified design system for the event—defining the branding, motion design, stage environments, digital assets, and immersive experiences—ensuring every moment felt intentional and elevated across multiple venues in Miami. <br/><br/> The design system was crafted to reflect Ripple's commitment to innovation and the transformative power of blockchain technology. From the dynamic stage visuals to the branded experiences, every element was designed to engage attendees and foster a sense of community and excitement about the future of finance.",
       descriptionTitle: "Designing a Cohesive Brand Experience for a Global Summit", 
     },
@@ -94,8 +99,25 @@ const RAW_PROJECTS: CoreProjectData[] = [
     info: {
       client: "Ripple",
       year: "2025",
+      team: "Ripple Design Team",
       description: "Ripple introduced Ripple USD, a USD-denominated stablecoin designed to maintain the constant value of one U.S. dollar. As part of this launch, I helped develop and animate the visual language centered around the idea of “liquidity” — a principle at the heart of financial markets. <br/><br/> I created and staged 3D scenes, designed social campaigns and physical assets, and a case study to support Ripple’s introduction of a new asset and a new way of moving value. Together, these elements formed a cohesive system that balanced clarity, trust, and innovation, reinforcing Ripple’s leadership in the rapidly growing $220 billion stablecoin market.",
       descriptionTitle: "Bringing Ripple USD to Life with Bold, Vibrant Design", 
+    },
+  },
+  {
+    slug: "shorts",
+    name: "Shorts",
+    thumbnail: "/shorts/shorts-thumbnail.png",
+    tags: ["Motion", "Design", "3D", "Branding"],
+    keyskills: ["Design","Animation", "After Effects", "Illustartor", "Figma"],
+    reelVideoUrl: "/shorts/shorts-preview.mp4",
+    heroImage: "/shorts/shorts-hero.png", 
+    info: {
+      client: "Personal Project",
+      year: "2024",
+      team: "Solo",
+      description: "This is collection of short-form animation experiments I made last year — solo projects I used to learn new techniques and push ideas quickly. One piece was submitted to a community animation challenge for Ravie with the prompt \"glint\". These mini-films are extremely fun for me to make because they let me let loose and try whatever I want: compact, playful, and focused on motion and texture. <br/><br/> Each short is an exercise in speed, creativity, and craft—aimed at exploring new tools, visual languages, and timing in bite-sized form.",
+      descriptionTitle: "Short-form animation experiments and solo creative exercises", 
     },
   },
 ];
