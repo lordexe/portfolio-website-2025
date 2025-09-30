@@ -22,7 +22,26 @@ interface ProjectCardProps {
   project: ProjectData;
 }
 
+const useIsMobile = (breakpoint = 768) => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < breakpoint);
+    };
+
+    if (typeof window !== 'undefined') {
+      handleResize();
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }
+  }, [breakpoint]);
+
+  return isMobile;
+};
+
 const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
+  const isMobile = useIsMobile();
   const [isHovered, setIsHovered] = useState(false);
   const [isThumbnailLoaded, setIsThumbnailLoaded] = useState(false);
   const [isPreviewLoaded, setIsPreviewLoaded] = useState(false);
@@ -123,6 +142,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   }, [project.thumbnail]);
 
   useEffect(() => {
+    if (isMobile) return;
+
     const videoElement = videoRef.current;
 
     if (!videoElement) {
@@ -144,7 +165,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
       videoElement.removeEventListener("canplay", markLoaded);
       videoElement.removeEventListener("error", markLoaded);
     };
-  }, [project.reelVideoUrl]);
+  }, [project.reelVideoUrl, isMobile]);
 
   return (
     <Link href={`/projects/${project.slug}`} className="block">
@@ -152,9 +173,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         ref={cardRef}
         className="relative w-full rounded-3xl overflow-hidden shadow-xl cursor-pointer"
         style={{ aspectRatio: '4 / 4.5' }}
-        onHoverStart={handleHoverStart}
-        onMouseMove={handleMouseMove}
-        onHoverEnd={handleHoverEnd}
+        onHoverStart={isMobile ? undefined : handleHoverStart}
+        onMouseMove={isMobile ? undefined : handleMouseMove}
+        onHoverEnd={isMobile ? undefined : handleHoverEnd}
       >
         <motion.div
           className={cn(
@@ -164,7 +185,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           style={{ backgroundImage: `url(${project.thumbnail})` }}
           variants={imageVariants}
           initial="initial"
-          animate={isHovered ? "hover" : "initial"}
+          animate={isHovered && !isMobile ? "hover" : "initial"}
           transition={{ duration: DURATION, ease: "easeInOut" }}
         />
 
@@ -182,56 +203,60 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
             </span>
           </div>
           
-          <div className="flex justify-center items-center h-full pointer-events-none">
-            <motion.div
-              className="w-full max-w-[85%] bg-[#f4f4f5]/20 backdrop-blur-sm rounded-md flex justify-center items-center overflow-hidden"
-              style={{
-                aspectRatio: '16 / 9',
-                x: x,
-                y: y,
-              }}
-              variants={previewDivVariants}
+          {!isMobile && (
+            <div className="flex justify-center items-center h-full pointer-events-none">
+              <motion.div
+                className="w-full max-w-[85%] bg-[#f4f4f5]/20 backdrop-blur-sm rounded-md flex justify-center items-center overflow-hidden"
+                style={{
+                  aspectRatio: '16 / 9',
+                  x: x,
+                  y: y,
+                }}
+                variants={previewDivVariants}
+                initial="initial"
+                animate={isHovered ? "hover" : "initial"}
+                transition={{ duration: DURATION, ease: EASE_IN_OUT_EXPO }}
+              >
+                <div className="relative w-full h-full">
+                  {!isPreviewLoaded && (
+                    <Skeleton className="absolute inset-0" aria-hidden="true" />
+                  )}
+                  <video
+                    ref={videoRef}
+                    src={project.reelVideoUrl}
+                    autoPlay={false}
+                    loop
+                    muted
+                    playsInline
+                    preload="metadata"
+                    className={cn(
+                      "w-full h-full object-cover transition-opacity duration-500",
+                      !isPreviewLoaded && "opacity-0"
+                    )}
+                  />
+                </div>
+              </motion.div>
+            </div>
+          )}
+          
+          {!isMobile && (
+            <motion.div 
+              className="flex flex-wrap justify-center gap-2"
+              variants={tagsVariants}
               initial="initial"
               animate={isHovered ? "hover" : "initial"}
-              transition={{ duration: DURATION, ease: EASE_IN_OUT_EXPO }}
             >
-              <div className="relative w-full h-full">
-                {!isPreviewLoaded && (
-                  <Skeleton className="absolute inset-0" aria-hidden="true" />
-                )}
-                <video
-                  ref={videoRef}
-                  src={project.reelVideoUrl}
-                  autoPlay={false}
-                  loop
-                  muted
-                  playsInline
-                  preload="metadata"
-                  className={cn(
-                    "w-full h-full object-cover transition-opacity duration-500",
-                    !isPreviewLoaded && "opacity-0"
-                  )}
-                />
-              </div>
+              {project.tags.map((tag, index) => (
+                <motion.span 
+                  key={index} 
+                  className="bg-[#f4f4f5]/20 backdrop-blur-sm text-[#f4f4f5] text-xs font-medium px-3 py-1 rounded-full"
+                  variants={tagItemVariants}
+                >
+                  {tag}
+                </motion.span>
+              ))}
             </motion.div>
-          </div>
-          
-          <motion.div 
-            className="flex flex-wrap justify-center gap-2"
-            variants={tagsVariants}
-            initial="initial"
-            animate={isHovered ? "hover" : "initial"}
-          >
-            {project.tags.map((tag, index) => (
-              <motion.span 
-                key={index} 
-                className="bg-[#f4f4f5]/20 backdrop-blur-sm text-[#f4f4f5] text-xs font-medium px-3 py-1 rounded-full"
-                variants={tagItemVariants}
-              >
-                {tag}
-              </motion.span>
-            ))}
-          </motion.div>
+          )}
           
         </div>
       </motion.div>
@@ -330,6 +355,12 @@ export default function Home() {
     }
 
     const markLoaded = () => setIsReelVideoLoaded(true);
+
+    try {
+      videoElement.setAttribute('fetchpriority', 'high');
+    } catch (e) {
+      // ignore
+    }
 
     if (videoElement.readyState >= 2) {
       setIsReelVideoLoaded(true);
