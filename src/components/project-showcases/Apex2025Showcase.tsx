@@ -135,7 +135,7 @@ const APEX_SHOWCASE_DATA: ShowcaseItem[] = [
     type: 'img'
   },
   { 
-    src: '/apex_2025/apex_2025-prod6.png', 
+    src: '/apex_2025/apex_2025-afterparty2.png', 
     alt: 'Apex 2025 Desk', 
     colSpan: 1, 
     ratio: 'square',

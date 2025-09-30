@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Ani Chauhan - Designer, Animator, Developer",
-  description: "Ani Chauhan's Portfolio - Designer, Animator, Developer",
+  description: "US Based Designer, Animator, Developer - Ani Chauhan",
   icons: {
     icon: "/favicon.png",
   },

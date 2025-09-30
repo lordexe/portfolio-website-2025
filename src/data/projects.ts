@@ -120,6 +120,38 @@ const RAW_PROJECTS: CoreProjectData[] = [
       descriptionTitle: "Short-form animation experiments and solo creative exercises", 
     },
   },
+  {
+    slug: "duralast-mechanics",
+    name: "Duralast Mechanics",
+    thumbnail: "/duralast_mechanics/duralast_mechanics-thumbnail.png",
+    tags: ["3D", "Motion", "Design"],
+    keyskills: ["3D", "Animation", "Modelling", "Staging","Cinema4D", "After Effects"],
+    reelVideoUrl: "/duralast_mechanics/duralast_mechanics-preview.mp4",
+    heroImage: "/duralast_mechanics/duralast_mechanics-hero.png",
+    info: {
+      client: "Trensor, Perfection",
+      year: "2024",
+      team: "Solo",
+      description: "The project challenged me to translate intricate mechanical details into approachable, tactile narratives. By focusing on lighting, composition, and animation, I created visuals that not only showcased the products but also conveyed their precision and reliability. <br/><br/> I produced 3D renderings and an animated showcase for Trensor and Perfection’s auto parts, transforming raw product photos into clear, presentation-ready assets. For the AutoZone–Duralast symposium, this included hero compositions, detailed part renders, and an animated feature highlighting core components—elevating the brands’ presence across slides, banners, and video loops with clarity and credibility.",
+      descriptionTitle: "Making Auto Parts Elegant and Understandable",
+    },
+  },
+  {
+    slug: "buoyant",
+    name: "Buoyant",
+    thumbnail: "/buoyant/buoyant-thumbnail.png",
+    tags: ["3D", "Motion", "Design"],
+    keyskills: ["3D", "Animation", "Modelling", "Staging","Cinema4D", "After Effects"],
+    reelVideoUrl: "/buoyant/buoyant-preview.mp4",
+    heroImage: "/buoyant/buoyant-hero.png",
+    info: {
+      client: "Buoyant",
+      year: "2025",
+      team: "Buoyant Studio",
+      description: "A product storytelling effort where I replaced low-quality supplier photography with a cohesive visual system: high-fidelity 3D renders, staged hero shots, and a short animated showcase. Assets were created to clearly communicate material, fit, and function for presentation use—elevating parts across slides, banners, and video loops.",
+      descriptionTitle: "Turning technical parts into confident product storytelling",
+    },
+  },
 ];
 
 export const ALL_PROJECTS = RAW_PROJECTS.map((project, index) => {

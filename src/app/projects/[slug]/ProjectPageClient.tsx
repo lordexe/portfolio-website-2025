@@ -15,6 +15,8 @@ import { LaJoteRefreshShowcase } from "@/components/project-showcases/LaJoteShow
 import { SwellMiamiRefreshShowcase } from "@/components/project-showcases/SwellMiamiShowcase";
 import { StablecoinRlusdShowcase } from "@/components/project-showcases/StablecoinRlusdShowcase";
 import { ShortsShowcase } from "@/components/project-showcases/ShortsShowcase";
+import { DuralastMechanicsShowcase } from "@/components/project-showcases/DuralastMechanicsShowcase";
+import { BuoyantShowcase } from "@/components/project-showcases/BuoyantShowcase";
 
 const NAV_HEIGHT = "88px";
 const FIXED_TOP_HEIGHT = "300px";
@@ -26,6 +28,8 @@ const showcaseComponents: Record<string, ComponentType> = {
   "la-jote": LaJoteRefreshShowcase,
   "swell-miami": SwellMiamiRefreshShowcase,
   "stablecoin-rlusd": StablecoinRlusdShowcase,
+  "duralast-mechanics": DuralastMechanicsShowcase,
+  "buoyant": BuoyantShowcase,
   "shorts": ShortsShowcase,
 };
 
